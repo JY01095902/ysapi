@@ -14,6 +14,7 @@ var CurrencyDetailURL = currencyRoot + "/currency/detail"
 var merchantRoot = digitalModelRoot + "/merchant"
 var MerchantListURL = merchantRoot + "/list"
 var MerchantDetailURL = merchantRoot + "/detail"
+var MerchantProductPriceURL = sdRoot + "/goods/price/customerproduct/list"
 
 var AdminDeptRoot = digitalModelRoot + "/admindept"
 var AdminDeptTreeURL = AdminDeptRoot + "/tree"

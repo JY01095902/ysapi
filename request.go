@@ -7,13 +7,13 @@ import (
 	"github.com/go-resty/resty/v2"
 )
 
-type request struct {
+type Request struct {
 	appKey    string
 	appSecret string
 }
 
-func NewRequest(appKey, appSecret string) request {
-	req := request{
+func NewRequest(appKey, appSecret string) Request {
+	req := Request{
 		appKey:    appKey,
 		appSecret: appSecret,
 	}
@@ -21,7 +21,7 @@ func NewRequest(appKey, appSecret string) request {
 	return req
 }
 
-func (req request) execute(r *resty.Request, method, url string) (Values, error) {
+func (req Request) execute(r *resty.Request, method, url string) (Values, error) {
 	token, err := req.getToken()
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (req request) execute(r *resty.Request, method, url string) (Values, error)
 	return *result, err
 }
 
-func (req request) Post(url string, body interface{}) (Values, error) {
+func (req Request) Post(url string, body interface{}) (Values, error) {
 	r := resty.New().R().
 		EnableTrace().
 		SetBody(body)
@@ -60,7 +60,7 @@ func (req request) Post(url string, body interface{}) (Values, error) {
 	return req.execute(r, resty.MethodPost, url)
 }
 
-func (req request) Get(url string, params map[string]string) (Values, error) {
+func (req Request) Get(url string, params map[string]string) (Values, error) {
 	r := resty.New().R().
 		EnableTrace().
 		SetQueryParams(params)
@@ -68,6 +68,6 @@ func (req request) Get(url string, params map[string]string) (Values, error) {
 	return req.execute(r, resty.MethodGet, url)
 }
 
-func (req request) getToken() (string, error) {
+func (req Request) getToken() (string, error) {
 	return getToken(req.appKey, req.appSecret, tokenURL)
 }
