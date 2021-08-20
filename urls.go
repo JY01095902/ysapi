@@ -69,6 +69,14 @@ var SNQuerySNStateListURL = snQuerySNStateRoot + "/list"
 var stockRoot = scmRoot + "/stock"
 var QueryCurrentStocksByConditionURL = stockRoot + "/QueryCurrentStocksByCondition"
 
+var transferApplyRoot = scmRoot + "/transferapply"
+var TransferApplySaveURL = transferApplyRoot + "/save"
+var TransferApplyBatchAuditURL = transferApplyRoot + "/batchaudit"
+
+var storeOutRoot = scmRoot + "/storeout"
+var StoreOutListURL = storeOutRoot + "/list"
+var StoreOutDetailURL = storeOutRoot + "/detail"
+
 // sd
 var sdRoot = urlRoot + "/sd"
 

@@ -15,6 +15,8 @@ func TestURLs(t *testing.T) {
 		{given: QueryCurrentStocksByConditionURL, want: "https://api.diwork.com/yonbip/scm/stock/QueryCurrentStocksByCondition"},
 		{given: VoucherOrderBatchAuditURL, want: "https://api.diwork.com/yonbip/sd/voucherorder/batchaudit"},
 		{given: TradeVouchQueryURL, want: "https://api.diwork.com/yonbip/sd/dst/tradevouch/query"},
+		{given: TransferApplySaveURL, want: "https://api.diwork.com/yonbip/scm/transferapply/save"},
+		{given: StoreOutDetailURL, want: "https://api.diwork.com/yonbip/scm/storeout/detail"},
 	}
 
 	for _, test := range tests {
