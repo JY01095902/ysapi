@@ -77,6 +77,10 @@ var storeOutRoot = scmRoot + "/storeout"
 var StoreOutListURL = storeOutRoot + "/list"
 var StoreOutDetailURL = storeOutRoot + "/detail"
 
+var storeInRoot = scmRoot + "/storein"
+var StoreInListURL = storeInRoot + "/list"
+var StoreInDetailURL = storeInRoot + "/detail"
+
 // sd
 var sdRoot = urlRoot + "/sd"
 
