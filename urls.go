@@ -81,6 +81,9 @@ var storeInRoot = scmRoot + "/storein"
 var StoreInListURL = storeInRoot + "/list"
 var StoreInDetailURL = storeInRoot + "/detail"
 
+var storeTransferRoot = scmRoot + "/storetransfer"
+var StoreTransferListURL = storeTransferRoot + "/list"
+
 // sd
 var sdRoot = urlRoot + "/sd"
 
