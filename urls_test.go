@@ -16,6 +16,7 @@ func TestURLs(t *testing.T) {
 		{given: VoucherOrderBatchAuditURL, want: "https://api.diwork.com/yonbip/sd/voucherorder/batchaudit"},
 		{given: TradeVouchQueryURL, want: "https://api.diwork.com/yonbip/sd/dst/tradevouch/query"},
 		{given: TransferApplySaveURL, want: "https://api.diwork.com/yonbip/scm/transferapply/save"},
+		{given: TransferApplyListURL, want: "https://api.diwork.com/yonbip/scm/transferapply/list"},
 		{given: StoreOutDetailURL, want: "https://api.diwork.com/yonbip/scm/storeout/detail"},
 		{given: StoreInListURL, want: "https://api.diwork.com/yonbip/scm/storein/list"},
 		{given: StoreTransferListURL, want: "https://api.diwork.com/yonbip/scm/storetransfer/list"},

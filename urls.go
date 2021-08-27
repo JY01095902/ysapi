@@ -72,6 +72,7 @@ var QueryCurrentStocksByConditionURL = stockRoot + "/QueryCurrentStocksByConditi
 var transferApplyRoot = scmRoot + "/transferapply"
 var TransferApplySaveURL = transferApplyRoot + "/save"
 var TransferApplyBatchAuditURL = transferApplyRoot + "/batchaudit"
+var TransferApplyListURL = transferApplyRoot + "/list"
 
 var storeOutRoot = scmRoot + "/storeout"
 var StoreOutListURL = storeOutRoot + "/list"
