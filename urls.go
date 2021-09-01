@@ -8,8 +8,8 @@ var urlRoot = "https://api.diwork.com/yonbip"
 var digitalModelRoot = urlRoot + "/digitalModel"
 
 var currencyRoot = digitalModelRoot + "/currency"
-var CurrencyListURL = currencyRoot + "/currency/list"
-var CurrencyDetailURL = currencyRoot + "/currency/detail"
+var CurrencyListURL = currencyRoot + "/list"
+var CurrencyDetailURL = currencyRoot + "/detail"
 
 var merchantRoot = digitalModelRoot + "/merchant"
 var MerchantListURL = merchantRoot + "/list"
@@ -21,6 +21,9 @@ var AdminDeptTreeURL = AdminDeptRoot + "/tree"
 
 var exchangeRateTypeRoot = digitalModelRoot + "/exchangeratetype"
 var ExchangeRateTypeListURL = exchangeRateTypeRoot + "/list"
+
+var exchangeRateRoot = digitalModelRoot + "/exchangerate"
+var ExchangeRateListURL = exchangeRateRoot + "/list"
 
 var orgUnitRoot = digitalModelRoot + "/orgunit"
 var OrgUnitTreeURL = orgUnitRoot + "/querytree"
