@@ -91,6 +91,12 @@ var StoreInDetailURL = storeInRoot + "/detail"
 var storeTransferRoot = scmRoot + "/storetransfer"
 var StoreTransferListURL = storeTransferRoot + "/list"
 
+var locationStockAnalysisRoot = scmRoot + "/locationstockanalysis"
+var LocationStockAnalysisList = locationStockAnalysisRoot + "/list"
+
+var stockAnalysisRoot = scmRoot + "/stockanalysis"
+var StockAnalysisList = stockAnalysisRoot + "/list"
+
 // sd
 var sdRoot = urlRoot + "/sd"
 
