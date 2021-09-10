@@ -22,6 +22,7 @@ func TestURLs(t *testing.T) {
 		{given: StoreTransferListURL, want: "https://api.diwork.com/yonbip/scm/storetransfer/list"},
 		{given: CurrencyListURL, want: "https://api.diwork.com/yonbip/digitalModel/currency/list"},
 		{given: ExchangeRateListURL, want: "https://api.diwork.com/yonbip/digitalModel/exchangerate/list"},
+		{given: GoodsPositionTree, want: "https://api.diwork.com/yonbip/digitalModel/goodsposition/tree"},
 	}
 
 	for _, test := range tests {
