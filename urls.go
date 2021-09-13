@@ -47,6 +47,9 @@ var WarehouseDetailURL = warehouseRoot + "/detail"
 var goodsPositionRoot = digitalModelRoot + "/goodsposition"
 var GoodsPositionTree = goodsPositionRoot + "/tree"
 
+var goodsProductSKUProRoot = digitalModelRoot + "/goodsproductskupro"
+var GoodsProductSKUProList = goodsProductSKUProRoot + "/list"
+
 // scm
 var scmRoot = urlRoot + "/scm"
 
