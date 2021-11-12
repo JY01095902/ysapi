@@ -83,6 +83,15 @@ var TransferApplySaveURL = transferApplyRoot + "/save"
 var TransferApplyBatchAuditURL = transferApplyRoot + "/batchaudit"
 var TransferApplyListURL = transferApplyRoot + "/list"
 
+var transferReqRoot = scmRoot + "/transferreq"
+var TransferReqSaveURL = transferReqRoot + "/save"
+var TransferReqBatchAuditURL = transferReqRoot + "/batchaudit"
+var TransferReqListURL = transferReqRoot + "/list"
+
+var morphologyConversionRoot = scmRoot + "/morphologyconversion"
+var MorphologyConversionSaveURL = morphologyConversionRoot + "/save"
+var MorphologyConversionBatchAuditURL = morphologyConversionRoot + "/batchaudit"
+
 var storeOutRoot = scmRoot + "/storeout"
 var StoreOutListURL = storeOutRoot + "/list"
 var StoreOutDetailURL = storeOutRoot + "/detail"

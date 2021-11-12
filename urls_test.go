@@ -26,6 +26,10 @@ func TestURLs(t *testing.T) {
 		{given: LocationStockAnalysisList, want: "https://api.diwork.com/yonbip/scm/locationstockanalysis/list"},
 		{given: StockAnalysisList, want: "https://api.diwork.com/yonbip/scm/stockanalysis/list"},
 		{given: GoodsProductSKUProList, want: "https://api.diwork.com/yonbip/digitalModel/goodsproductskupro/list"},
+		{given: TransferReqSaveURL, want: "https://api.diwork.com/yonbip/scm/transferreq/save"},
+		{given: TransferReqBatchAuditURL, want: "https://api.diwork.com/yonbip/scm/transferreq/batchaudit"},
+		{given: MorphologyConversionSaveURL, want: "https://api.diwork.com/yonbip/scm/morphologyconversion/save"},
+		{given: MorphologyConversionBatchAuditURL, want: "https://api.diwork.com/yonbip/scm/morphologyconversion/batchaudit"},
 	}
 
 	for _, test := range tests {
