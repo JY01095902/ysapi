@@ -9,6 +9,12 @@ import (
 
 type Values map[string]interface{}
 
+func (vals Values) String() string {
+	b, _ := json.Marshal(vals)
+
+	return string(b)
+}
+
 func (vals Values) Set(key string, value interface{}) {
 	vals[key] = value
 }

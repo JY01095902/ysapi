@@ -45,6 +45,12 @@ type EventMessage struct {
 	Ciphertext string `json:"encrypt"`
 }
 
+func (e EventMessage) String() string {
+	b, _ := json.Marshal(e)
+
+	return string(b)
+}
+
 func (e EventMessage) Decrypt(appKey, appSecret string) (EventPlaintext, error) {
 	if !checkMessage(e, appSecret) {
 		return EventPlaintext{}, errors.New("signature is error")
@@ -78,6 +84,12 @@ type EventPlaintext struct {
 	Content       string   `json:"content"`
 }
 
+func (e EventPlaintext) String() string {
+	b, _ := json.Marshal(e)
+
+	return string(b)
+}
+
 func (e EventPlaintext) UnmarshalContent() (EventContent, error) {
 	var content EventContent
 	if err := json.Unmarshal([]byte(e.Content), &content); err != nil {
@@ -94,9 +106,20 @@ type EventContent struct {
 	Archive        string `json:"archive"`
 	YHTAccessToken string `json:"yht_access_token"`
 	Fullname       string `json:"fullname"`
+	Id             int64  `json:"id"`
+}
+
+func (e EventContent) String() string {
+	b, _ := json.Marshal(e)
+
+	return string(b)
 }
 
 func (e EventContent) UnmarshalArchive() (Values, error) {
+	if e.Archive == "" {
+		return Values{}, nil
+	}
+
 	var val Values
 	if err := json.Unmarshal([]byte(e.Archive), &val); err != nil {
 		return nil, err
