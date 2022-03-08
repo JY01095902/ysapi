@@ -117,6 +117,7 @@ var VoucherOrderListURL = voucherOrderRoot + "/list"
 var VoucherOrderDetailURL = voucherOrderRoot + "/detail"
 var VoucherOrderSaveURL = voucherOrderRoot + "/save"
 var VoucherOrderBatchAuditURL = voucherOrderRoot + "/batchaudit"
+var VoucherOrderCloseURL = voucherOrderRoot + "/close"
 
 var voucherSaleReturnRoot = sdRoot + "/vouchersalereturn"
 var VoucherSaleReturnListURL = voucherSaleReturnRoot + "/list"
@@ -139,3 +140,4 @@ var SuitGoodsQueryURL = suitGoodsRoot + "/query"
 
 var tradeOrderRoot = dstRoot + "/tradeorder"
 var TradeOrderQueryURL = tradeOrderRoot + "/query"
+var TradeOrderHoldURL = tradeOrderRoot + "/tradehold"
