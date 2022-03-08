@@ -79,7 +79,7 @@ func (req Request) getToken() (string, error) {
 }
 
 /*
-	一下是对request的扩展
+	以下是对request的扩展
 */
 type QueryOption func(values Values)
 

@@ -122,9 +122,20 @@ var voucherSaleReturnRoot = sdRoot + "/vouchersalereturn"
 var VoucherSaleReturnListURL = voucherSaleReturnRoot + "/list"
 var VoucherSaleReturnDetailURL = voucherSaleReturnRoot + "/detail"
 
+var voucherDeliveryRoot = sdRoot + "/voucherdelivery"
+var VoucherDeliveryListURL = voucherDeliveryRoot + "/list"
+var VoucherDeliveryUnauditURL = voucherDeliveryRoot + "/unaudit"
+var VoucherDeliveryBatchDeleteURL = voucherDeliveryRoot + "/batchdelete"
+
 // dst
 var dstRoot = sdRoot + "/dst"
 
 var tradeVouchRoot = dstRoot + "/tradevouch"
 var TradeVouchImportURL = tradeVouchRoot + "/import"
 var TradeVouchQueryURL = tradeVouchRoot + "/query"
+
+var suitGoodsRoot = dstRoot + "/suitgoods"
+var SuitGoodsQueryURL = suitGoodsRoot + "/query"
+
+var tradeOrderRoot = dstRoot + "/tradeorder"
+var TradeOrderQueryURL = tradeOrderRoot + "/query"
