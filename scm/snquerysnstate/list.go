@@ -18,17 +18,17 @@ type ListRequest struct {
 	AppSecret string
 	PageIndex int
 	PageSize  int
-	Data      request.Values
+	Params    request.Values
 	SimpleVOs []SimpleVO
 }
 
-func (req ListRequest) Params() request.Values {
+func (req ListRequest) ToValues() request.Values {
 	values := request.Values{
 		"pageIndex": req.PageIndex,
 		"pageSize":  req.PageSize,
 	}
 
-	for k, v := range req.Data {
+	for k, v := range req.Params {
 		values.Set(k, v)
 	}
 
@@ -83,12 +83,12 @@ type ListResponse struct {
 		BeginPageIndex int    `json:"beginPageIndex"`
 		EndPageIndex   int    `json:"endPageIndex"`
 		PubTs          string `json:"pubts"`
-	}
+	} `json:"data"`
 }
 
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.SNQuerySNStateListURL, req.Params())
+	vals, err := apiReq.Post(request.SNQuerySNStateListURL, req.ToValues())
 	if err != nil {
 		return ListResponse{}, err
 	}

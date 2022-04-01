@@ -3,20 +3,21 @@ package snquerysnstate
 import (
 	"encoding/json"
 	"log"
+	"strings"
 	"testing"
 
 	"github.com/jy01095902/ysapi/request"
 	"github.com/stretchr/testify/assert"
 )
 
-func TestListRequestParams(t *testing.T) {
+func TestListRequestToValues(t *testing.T) {
 	req := ListRequest{
 		PageIndex: 1,
 		PageSize:  10,
-		Data:      request.Values{"sn": "12345"},
+		Params:    request.Values{"sn": "12345"},
 	}
 
-	params := req.Params()
+	params := req.ToValues()
 	assert.Equal(t, 1, params["pageIndex"])
 	assert.Equal(t, 10, params["pageSize"])
 	assert.Equal(t, "12345", params["sn"])
@@ -36,7 +37,7 @@ func TestListRequestParams(t *testing.T) {
 			Value2: "z",
 		},
 	}
-	params = req.Params()
+	params = req.ToValues()
 	ovs := params["simpleVOs"].([]request.Values)
 	assert.Equal(t, "id", ovs[0]["field"])
 	assert.Equal(t, "eq", ovs[0]["op"])
@@ -55,7 +56,7 @@ func TestList(t *testing.T) {
 		AppSecret: "",
 		PageIndex: 1,
 		PageSize:  10,
-		Data:      request.Values{"sn": sn},
+		Params:    request.Values{"sn": sn},
 	}
 	for i := 0; i < 20; i++ {
 		resp, err := List(req)
@@ -67,7 +68,11 @@ func TestList(t *testing.T) {
 			if resp.Code == "200" && len(resp.Data.RecordList) == 0 {
 				assert.ErrorIs(t, err, request.ErrYonSuiteAPIBizError)
 			} else {
-				assert.ErrorIs(t, err, request.ErrCallYonSuiteAPIFailed)
+				if strings.Contains(err.Error(), "310046") {
+					assert.ErrorIs(t, err, request.ErrAPILimit)
+				} else {
+					assert.ErrorIs(t, err, request.ErrCallYonSuiteAPIFailed)
+				}
 			}
 		} else {
 			assert.Equal(t, sn, resp.Data.RecordList[0].SN)

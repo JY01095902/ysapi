@@ -1,6 +1,8 @@
 package request
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type ListResponse struct {
 	Code    string `json:"code"`
@@ -19,6 +21,10 @@ func checkAPIResponse(val Values) error {
 	}
 
 	if resp.Code != "200" {
+		if resp.Code == "310046" {
+			return fmt.Errorf("%w: %s", ErrAPILimit, resp.Message)
+		}
+
 		return fmt.Errorf("%w: %s", ErrYonSuiteAPIBizError, resp.Message)
 	}
 

@@ -43,6 +43,10 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 	}
 
 	if resp.StatusCode() != 200 {
+		if resp.StatusCode() == 429 {
+			return nil, fmt.Errorf("%w error: %s", ErrAPILimit, resp.String())
+		}
+
 		return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, resp.String())
 	}
 
