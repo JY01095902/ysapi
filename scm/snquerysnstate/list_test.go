@@ -68,7 +68,7 @@ func TestList(t *testing.T) {
 			if resp.Code == "200" && len(resp.Data.RecordList) == 0 {
 				assert.ErrorIs(t, err, request.ErrYonSuiteAPIBizError)
 			} else {
-				if strings.Contains(err.Error(), "310046") {
+				if strings.Contains(err.Error(), "限流") {
 					assert.ErrorIs(t, err, request.ErrAPILimit)
 				} else {
 					assert.ErrorIs(t, err, request.ErrCallYonSuiteAPIFailed)

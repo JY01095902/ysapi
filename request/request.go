@@ -1,6 +1,7 @@
 package request
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -42,24 +43,34 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 		return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, err.Error())
 	}
 
-	if resp.StatusCode() != 200 {
-		if resp.StatusCode() == 429 {
-			return nil, fmt.Errorf("%w error: %s", ErrAPILimit, resp.String())
+	if resp.StatusCode() == 200 {
+		values, ok := resp.Result().(*Values)
+		if !ok {
+			return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
 		}
 
-		return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, resp.String())
+		if err := checkResponse(*values); err != nil {
+			return Values{}, err
+		}
+
+		return *values, nil
 	}
 
-	result, ok := resp.Result().(*Values)
-	if !ok {
-		return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
+	// 429 是限流
+	if resp.StatusCode() == 429 {
+		var values Values
+		if err := json.Unmarshal(resp.Body(), &values); err != nil {
+			return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
+		}
+
+		if err := checkResponse(values); err != nil {
+			return Values{}, err
+		}
+
+		return values, nil
 	}
 
-	if err := checkAPIResponse(*result); err != nil {
-		return Values{}, err
-	}
-
-	return *result, err
+	return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, resp.String())
 }
 
 func (req Request) Post(url string, body interface{}) (Values, error) {
