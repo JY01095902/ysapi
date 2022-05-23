@@ -1,6 +1,7 @@
 package request
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -36,7 +37,6 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 
 	resp, err := r.
 		SetQueryParam("access_token", neturl.QueryEscape(token)).
-		SetResult(Values{}).
 		Execute(method, url)
 
 	if err != nil {
@@ -44,16 +44,21 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 	}
 
 	if resp.StatusCode() == 200 {
-		values, ok := resp.Result().(*Values)
-		if !ok {
-			return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
+
+		values := Values{}
+
+		// body是后端的http返回结果
+		d := json.NewDecoder(bytes.NewReader(resp.Body()))
+		d.UseNumber()
+		if err := d.Decode(&values); err != nil {
+			return Values{}, fmt.Errorf("%w: decode response body failed, error: %v", ErrYonSuiteAPIBizError, err)
 		}
 
-		if err := checkResponse(*values); err != nil {
+		if err := checkResponse(values); err != nil {
 			return Values{}, err
 		}
 
-		return *values, nil
+		return values, nil
 	}
 
 	// 429 是限流
