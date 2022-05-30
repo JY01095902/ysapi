@@ -1,10 +1,25 @@
-package salesout
+package storeout
 
 import (
 	"fmt"
 
 	"github.com/jy01095902/ysapi/request"
 )
+
+type DetailDto struct {
+	Id                int64  `json:"id"`
+	OrderNumber       string `json:"code"`
+	SourceOrderNumber string `json:"srcBillNO"`
+	HeadItemDefine1   string `json:"headItem!define1"`
+	HeadItemDefine2   string `json:"headItem!define2"`
+	Items             []struct {
+		ProductSKUCode string  `json:"productsku_cCode"`
+		Qty            float64 `json:"qty"`
+		SerialNumbers  []struct {
+			SerialNumber string `json:"sn"`
+		} `json:"storeOutDetailSNs"`
+	} `json:"details"`
+}
 
 type DetailRequest struct {
 	AppKey    string
@@ -13,14 +28,14 @@ type DetailRequest struct {
 }
 
 type DetailResponse struct {
-	Code    string        `json:"code"`
-	Message string        `json:"message"`
+	Code    string    `json:"code"`
+	Message string    `json:"message"`
 	Data    DetailDto `json:"data"`
 }
 
 func Get(req DetailRequest) (DetailResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Get(request.SalesOutDetailURL, map[string]string{
+	vals, err := apiReq.Get(request.StoreOutDetailURL, map[string]string{
 		"id": req.Id,
 	})
 	if err != nil {

@@ -1,4 +1,4 @@
-package salesout
+package storeout
 
 import (
 	"fmt"
@@ -50,8 +50,9 @@ func (req ListRequest) ToValues() request.Values {
 }
 
 type ListDto struct {
-	Id          int64  `json:"id"`
-	OrderNumber string `json:"code"`
+	Id                int64  `json:"id"`
+	OrderNumber       string `json:"code"`
+	SourceOrderNumber string `json:"srcbillno"`
 }
 
 type ListResponse struct {
@@ -71,7 +72,7 @@ type ListResponse struct {
 
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.SalesOutListURL, req.ToValues())
+	vals, err := apiReq.Post(request.StoreOutListURL, req.ToValues())
 	if err != nil {
 		return ListResponse{}, err
 	}
