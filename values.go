@@ -1,6 +1,7 @@
 package ysapi
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"reflect"
@@ -67,7 +68,14 @@ func unmarshal(resType, val interface{}) (interface{}, error) {
 		return nil, err
 	}
 
-	err = json.Unmarshal(data, &res)
+	// err = json.Unmarshal(data, &res)
+
+	d := json.NewDecoder(bytes.NewReader(data))
+	d.UseNumber()
+	if err := d.Decode(&res); err != nil {
+		return Values{}, err
+	}
+
 	if err != nil {
 		return nil, err
 	}

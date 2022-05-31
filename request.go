@@ -1,6 +1,8 @@
 package ysapi
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -46,16 +48,20 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 		return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, resp.String())
 	}
 
-	result, ok := resp.Result().(*Values)
-	if !ok {
-		return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
+	values := Values{}
+
+	// body是后端的http返回结果
+	d := json.NewDecoder(bytes.NewReader(resp.Body()))
+	d.UseNumber()
+	if err := d.Decode(&values); err != nil {
+		return Values{}, fmt.Errorf("%w: decode response body failed, error: %v", ErrYonSuiteAPIBizError, err)
 	}
 
-	if err := checkAPIResponse(*result); err != nil {
+	if err := checkAPIResponse(values); err != nil {
 		return Values{}, err
 	}
 
-	return *result, err
+	return values, nil
 }
 
 func (req Request) Post(url string, body interface{}) (Values, error) {
