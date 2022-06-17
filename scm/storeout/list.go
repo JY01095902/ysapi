@@ -1,8 +1,12 @@
 package storeout
 
 import (
+	"errors"
 	"fmt"
+	"log"
+	"sync"
 
+	"github.com/jy01095902/ysapi/batchreq"
 	"github.com/jy01095902/ysapi/request"
 )
 
@@ -96,4 +100,53 @@ func List(req ListRequest) (ListResponse, error) {
 	}
 
 	return *res, nil
+}
+
+func ListAll(req ListRequest) ([]ListResponse, error) {
+	var list []ListResponse
+	batreq := batchreq.New(req.AppKey, req.AppSecret, request.StoreOutListURL, req.ToValues(), "pageIndex", "pageSize", "recordCount")
+	// if batreq.ItemsTotal() == 0 {
+	// 	return nil, errors.New("items total is 0")
+	// }
+	resChan, errChan := batreq.Execute()
+	var err error
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+
+		errstr := ""
+		for e := range errChan {
+			if e != nil {
+				errstr += ";" + e.Error()
+			}
+		}
+		if len(errstr) > 0 {
+			err = errors.New(errstr[1:])
+		}
+	}()
+
+	for res := range resChan {
+		if list == nil {
+			log.Printf("batreq.PageCount(): %d", batreq.PageCount())
+			list = make([]ListResponse, batreq.PageCount())
+		}
+
+		resp, err := res.GetResult(ListResponse{})
+		if err != nil {
+			log.Printf("parse values to ListResponse failed, error: %s", err.Error())
+		}
+
+		lstResp, ok := resp.(*ListResponse)
+		if !ok {
+			log.Println("values is not type of ListResponse")
+		}
+
+		if lstResp.Data.PageIndex > 0 {
+			list[lstResp.Data.PageIndex-1] = *lstResp
+		}
+	}
+
+	wg.Wait()
+	return list, err
 }
