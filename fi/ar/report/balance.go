@@ -124,7 +124,7 @@ func Balance(req BalanceRequest) (BalanceResponse, error) {
 	}
 
 	if len(resp.Data.Result) == 0 {
-		return *resp, fmt.Errorf("%w error: not found sn state", request.ErrYonSuiteAPIBizError)
+		return *resp, fmt.Errorf("%w error: not found balance", request.ErrYonSuiteAPIBizError)
 	}
 
 	return *resp, nil

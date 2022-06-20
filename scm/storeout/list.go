@@ -96,7 +96,7 @@ func List(req ListRequest) (ListResponse, error) {
 	}
 
 	if len(res.Data.RecordList) == 0 {
-		return *res, fmt.Errorf("%w error: not found sn state", request.ErrYonSuiteAPIBizError)
+		return *res, fmt.Errorf("%w error: not found store-out list", request.ErrYonSuiteAPIBizError)
 	}
 
 	return *res, nil
