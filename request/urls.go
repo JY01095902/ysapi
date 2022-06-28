@@ -4,6 +4,7 @@ var tokenURL = "https://open.yonyoucloud.com/open-auth/selfAppAuth/getAccessToke
 
 var urlRoot = "https://api.diwork.com/yonbip"
 var URLRoot = urlRoot
+var NewURLRoot = "https://yonbip.diwork.com/iuap-api-gateway"
 
 // digitalModel
 var digitalModelRoot = urlRoot + "/digitalModel"
