@@ -52,6 +52,8 @@ type ShipResponse struct {
 
 func Ship(req ShipRequest) (ShipResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
+
+	// fmt.Printf(" req.ToValues(): %s", req.ToValues().String())
 	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/ship", req.ToValues())
 	if err != nil {
 		return ShipResponse{}, err

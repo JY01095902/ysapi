@@ -38,9 +38,15 @@ func (req SaveRequest) ToValues() request.Values {
 }
 
 type SaveResponse struct {
-	Code    string         `json:"code"`
-	Message string         `json:"message"`
-	Data    request.Values `json:"data"`
+	Code    string `json:"code"`
+	Message string `json:"message"`
+	Data    struct {
+		Count        int              `json:"count"`
+		SuccessCount int              `json:"sucessCount"`
+		FailCount    int              `json:"failCount"`
+		Messages     []string         `json:"messages"`
+		Infos        []request.Values `json:"infos"`
+	} `json:"data"`
 }
 
 func Save(req SaveRequest) (SaveResponse, error) {

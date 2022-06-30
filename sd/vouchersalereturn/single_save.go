@@ -58,8 +58,8 @@ type SaleReturnDetail struct {
 	TaxId                 string  `json:"taxId"`
 	StockId               string  `json:"stockId"`
 	StockOrgId            string  `json:"stockOrgId"`
-	IProductAuxUnitId     string  `json:"iProductAuxUnitId"`
-	IProductUnitId        string  `json:"iProductUnitId"`
+	ProductAuxUnitId      string  `json:"iProductAuxUnitId"`
+	ProductUnitId         string  `json:"iProductUnitId"`
 	MasterUnitId          string  `json:"masterUnitId"`
 	SalesOrgId            string  `json:"salesOrgId"`
 	InvExchRate           float64 `json:"invExchRate"`
