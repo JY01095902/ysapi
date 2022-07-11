@@ -43,39 +43,21 @@ func (req Request) execute(r *resty.Request, method, url string) (Values, error)
 		return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, err.Error())
 	}
 
-	if resp.StatusCode() == 200 {
-
-		values := Values{}
-
-		// body是后端的http返回结果
-		d := json.NewDecoder(bytes.NewReader(resp.Body()))
-		d.UseNumber()
-		if err := d.Decode(&values); err != nil {
-			return Values{}, fmt.Errorf("%w: decode response body failed, error: %v", ErrYonSuiteAPIBizError, err)
-		}
-
-		if err := checkResponse(values); err != nil {
-			return Values{}, err
-		}
-
-		return values, nil
+	err = checkResponse(resp.StatusCode(), resp.Body())
+	if err != nil {
+		return nil, err
 	}
 
-	// 429 是限流
-	if resp.StatusCode() == 429 {
-		var values Values
-		if err := json.Unmarshal(resp.Body(), &values); err != nil {
-			return Values{}, fmt.Errorf("%w: type of result is not Values", ErrYonSuiteAPIBizError)
-		}
+	values := Values{}
 
-		if err := checkResponse(values); err != nil {
-			return Values{}, err
-		}
-
-		return values, nil
+	// body是后端的http返回结果
+	d := json.NewDecoder(bytes.NewReader(resp.Body()))
+	d.UseNumber()
+	if err := d.Decode(&values); err != nil {
+		return Values{}, fmt.Errorf("%w: decode response body failed, error: %v", ErrYonSuiteAPIBizError, err)
 	}
 
-	return nil, fmt.Errorf("%w error: %s", ErrCallYonSuiteAPIFailed, resp.String())
+	return values, nil
 }
 
 func (req Request) Post(url string, body interface{}) (Values, error) {

@@ -7,4 +7,5 @@ require (
 	github.com/go-resty/resty/v2 v2.6.0
 	github.com/jy01095902/gokits v0.0.0-20210705023224-bb6f8f9bcf76
 	github.com/stretchr/testify v1.7.0
+	golang.org/x/time v0.0.0-20220609170525-579cf78fd858
 )
