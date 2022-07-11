@@ -1,7 +1,9 @@
 package salesout
 
 import (
+	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/jy01095902/ysapi/request"
 )
@@ -49,9 +51,33 @@ func (req ListRequest) ToValues() request.Values {
 	return values
 }
 
-type ListDto struct {
-	Id          int64  `json:"id"`
-	OrderNumber string `json:"code"`
+// type ListDto struct {
+// 	Id          int64  `json:"id"`
+// 	OrderNumber string `json:"code"`
+// }
+
+type ListDto request.Values
+
+func (dto ListDto) Id() string {
+	switch id := dto["id"].(type) {
+	case json.Number:
+		return id.String()
+	case int64:
+		return strconv.FormatInt(id, 10)
+	case float64:
+		return strconv.FormatFloat(id, 'f', -1, 64)
+	default:
+		return ""
+	}
+}
+
+func (dto ListDto) OrderNumber() string {
+	switch code := dto["code"].(type) {
+	case string:
+		return code
+	default:
+		return ""
+	}
 }
 
 type ListResponse struct {
