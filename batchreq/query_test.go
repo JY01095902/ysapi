@@ -26,8 +26,7 @@ func TestQuery(t *testing.T) {
 	for i := 0; i < itemCount; i++ {
 		items[i] = "DATA[" + strconv.Itoa(i) + "]"
 	}
-	do := func(idx int) (interface{}, error) {
-		pnum := idx + 1
+	do := func(pnum int) (interface{}, error) {
 		start := (pnum - 1) * pageSize
 		end := start + pageSize
 		if end > len(items) {
@@ -54,8 +53,7 @@ func TestQuery(t *testing.T) {
 	assert.Equal(t, itemCount, total)
 
 	// 一直返回错误，延时
-	do = func(idx int) (interface{}, error) {
-		pnum := idx + 1
+	do = func(pnum int) (interface{}, error) {
 		start := (pnum - 1) * pageSize
 		end := start + pageSize
 		if end > len(items) {
@@ -73,21 +71,20 @@ func TestQuery(t *testing.T) {
 
 	// 失败后重试成功
 	var doCnt sync.Map
-	do = func(idx int) (interface{}, error) {
-		pnum := idx + 1
+	do = func(pnum int) (interface{}, error) {
 		start := (pnum - 1) * pageSize
 		end := start + pageSize
 		if end > len(items) {
 			end = len(items)
 		}
 		data := items[start:end]
-		if _, exist := doCnt.Load(idx); exist {
+		if _, exist := doCnt.Load(pnum); exist {
 			return page{
 				PageNumber: pnum,
 				Items:      data,
 			}, nil
 		}
-		doCnt.Store(idx, struct{}{})
+		doCnt.Store(pnum, struct{}{})
 
 		return page{
 			PageNumber: pnum,

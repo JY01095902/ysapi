@@ -14,17 +14,17 @@ import (
 func Query(count int, do func(index int) (interface{}, error), limiter *rate.Limiter, timeout time.Duration) ([]interface{}, error) {
 	start := time.Now()
 	type result struct {
-		index int
-		data  interface{}
-		err   error
+		num  int
+		data interface{}
+		err  error
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	idxChan := make(chan int, count)
-	for i := 0; i < count; i++ {
-		idxChan <- i
+	numChan := make(chan int, count)
+	for i := 1; i <= count; i++ {
+		numChan <- i
 	}
 
 	results := make([]interface{}, count)
@@ -44,16 +44,16 @@ func Query(count int, do func(index int) (interface{}, error), limiter *rate.Lim
 				}
 
 				if res.err != nil {
-					errs[res.index] = res.err
-					idxChan <- res.index
+					errs[res.num-1] = res.err
+					numChan <- res.num
 				} else {
-					results[res.index] = res.data
-					errs[res.index] = nil
-					resmap[res.index] = struct{}{}
+					results[res.num-1] = res.data
+					errs[res.num-1] = nil
+					resmap[res.num] = struct{}{}
 
-					// log.Printf("len(resmap): %d", len(resmap))
+					log.Printf("num: %d is done.", res.num)
 					if len(resmap) == count {
-						close(idxChan)
+						close(numChan)
 						close(resultChan)
 						return
 					}
@@ -70,7 +70,7 @@ func Query(count int, do func(index int) (interface{}, error), limiter *rate.Lim
 
 		for {
 			select {
-			case idx, ok := <-idxChan:
+			case num, ok := <-numChan:
 				if !ok {
 					return
 				}
@@ -81,12 +81,12 @@ func Query(count int, do func(index int) (interface{}, error), limiter *rate.Lim
 				}
 
 				go func() {
-					data, err := do(idx)
+					data, err := do(num)
 					select {
 					case resultChan <- result{
-						index: idx,
-						data:  data,
-						err:   err,
+						num:  num,
+						data: data,
+						err:  err,
 					}:
 					case <-ctx.Done():
 						return
