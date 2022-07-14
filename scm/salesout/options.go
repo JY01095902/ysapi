@@ -1,6 +1,8 @@
 package salesout
 
-import "time"
+import (
+	"time"
+)
 
 type ListRequestOption func(req *ListRequest)
 
@@ -39,6 +41,58 @@ func WithPubTsBetween(start, end time.Time) ListRequestOption {
 		has := false
 		for i, vo := range req.SimpleVOs {
 			if vo.Field == "pubts" {
+				req.SimpleVOs[i] = newVO
+				has = true
+			}
+		}
+
+		if !has {
+			req.SimpleVOs = append(req.SimpleVOs, newVO)
+		}
+	}
+}
+
+func WithMerchantIdsIn(ids []string) ListRequestOption {
+	return func(req *ListRequest) {
+		if len(ids) == 0 {
+			return
+		}
+
+		newVO := SimpleVO{
+			Field:  "cust",
+			Op:     "in",
+			Value1: ids,
+		}
+
+		has := false
+		for i, vo := range req.SimpleVOs {
+			if vo.Field == "cust" {
+				req.SimpleVOs[i] = newVO
+				has = true
+			}
+		}
+
+		if !has {
+			req.SimpleVOs = append(req.SimpleVOs, newVO)
+		}
+	}
+}
+
+func WithSKUCodesIn(codes []string) ListRequestOption {
+	return func(req *ListRequest) {
+		if len(codes) == 0 {
+			return
+		}
+
+		newVO := SimpleVO{
+			Field:  "details.product.cCode",
+			Op:     "in",
+			Value1: codes,
+		}
+
+		has := false
+		for i, vo := range req.SimpleVOs {
+			if vo.Field == "details.product.cCode" {
 				req.SimpleVOs[i] = newVO
 				has = true
 			}

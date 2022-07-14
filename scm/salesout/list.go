@@ -11,7 +11,7 @@ import (
 type SimpleVO struct {
 	Field  string
 	Op     string
-	Value1 string
+	Value1 interface{}
 	Value2 string
 }
 
