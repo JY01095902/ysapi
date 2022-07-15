@@ -26,6 +26,8 @@ func TestQuery(t *testing.T) {
 	for i := 0; i < itemCount; i++ {
 		items[i] = "DATA[" + strconv.Itoa(i) + "]"
 	}
+
+	// 正常成功
 	do := func(pnum int) (interface{}, error) {
 		start := (pnum - 1) * pageSize
 		end := start + pageSize
@@ -103,4 +105,23 @@ func TestQuery(t *testing.T) {
 		total += len(p.Items)
 	}
 	assert.Equal(t, itemCount, total)
+
+	// 只执行一次
+	result, err = Query(1, do, limiter, timeout)
+	assert.Nil(t, err)
+	assert.Equal(t, 1, len(result))
+	total = 0
+	for _, inf := range result {
+		if inf == nil {
+			continue
+		}
+		p := inf.(page)
+		total += len(p.Items)
+	}
+	assert.Equal(t, pageSize, total)
+
+	// 执行0次
+	result, err = Query(0, do, limiter, timeout)
+	assert.Nil(t, err)
+	assert.Equal(t, 0, len(result))
 }

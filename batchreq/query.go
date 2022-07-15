@@ -12,6 +12,10 @@ import (
 )
 
 func Query(count int, do func(index int) (interface{}, error), limiter *rate.Limiter, timeout time.Duration) ([]interface{}, error) {
+	if count <= 0 {
+		return []interface{}{}, nil
+	}
+
 	start := time.Now()
 	type result struct {
 		num  int
