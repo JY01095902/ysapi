@@ -31,38 +31,40 @@ func bundelErrors(errs ...error) error {
 	return nil
 }
 
-func newNumsChannel(count int) chan int {
-	ch := make(chan int, count)
+func createResultChannel(ctx context.Context, count int) (<-chan int, chan<- result, <-chan struct{}, func() ([]interface{}, error)) {
+	numch := make(chan int, count)
 	for i := 1; i <= count; i++ {
-		ch <- i
+		numch <- i
 	}
 
-	return ch
-}
-
-func newResults(ctx context.Context, count int, results *[]interface{}, errs *[]error, nums chan<- int) chan<- result {
-	ch := make(chan result, count)
+	resultch := make(chan result, count)
+	finishSignal := make(chan struct{})
+	results := make([]interface{}, count)
+	errs := make([]error, count)
 
 	go func() {
-		defer close(nums)
+		defer close(numch)
+		defer close(finishSignal)
 
 		resmap := make(map[int]struct{}, count) // 用于判断查询是否全部完成
 		for {
 			select {
-			case res, ok := <-ch:
+			case res, ok := <-resultch:
 				if !ok {
 					return
 				}
 
 				if res.err != nil {
-					(*errs)[res.num-1] = res.err
-					nums <- res.num
+					errs[res.num-1] = res.err
+					numch <- res.num
 				} else {
-					(*results)[res.num-1] = res.data
-					(*errs)[res.num-1] = nil
+					results[res.num-1] = res.data
+					errs[res.num-1] = nil
 					resmap[res.num] = struct{}{}
 
 					if len(resmap) == count {
+						finishSignal <- struct{}{}
+
 						return
 					}
 				}
@@ -72,7 +74,9 @@ func newResults(ctx context.Context, count int, results *[]interface{}, errs *[]
 		}
 	}()
 
-	return ch
+	return numch, resultch, finishSignal, func() ([]interface{}, error) {
+		return results, bundelErrors(errs...)
+	}
 }
 
 func Query(count int, do func(index int) (interface{}, error), limiter *rate.Limiter, timeout time.Duration) ([]interface{}, error) {
@@ -83,18 +87,15 @@ func Query(count int, do func(index int) (interface{}, error), limiter *rate.Lim
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	results := make([]interface{}, count)
-	errs := make([]error, count)
+	numch, resultch, finishSignal, getResults := createResultChannel(ctx, count)
+	defer close(resultch)
 
-	nums := newNumsChannel(count)
-	reschann := newResults(ctx, count, &results, &errs, nums)
 	var limiterErr error
-
 	var wg sync.WaitGroup
 ReadNum:
 	for {
 		select {
-		case num, ok := <-nums:
+		case num, ok := <-numch:
 			if !ok {
 				break ReadNum
 			}
@@ -110,138 +111,23 @@ ReadNum:
 				defer wg.Done()
 
 				data, err := do(num)
-				reschann <- result{
+				resultch <- result{
 					num:  num,
 					data: data,
 					err:  err,
 				}
 			}()
+
+		case <-finishSignal:
+			break ReadNum
+
 		case <-ctx.Done():
 			break ReadNum
 		}
 	}
-
 	wg.Wait()
-	defer close(reschann)
 
-	return results, bundelErrors(append(errs, ctx.Err(), limiterErr)...)
+	results, err := getResults()
+
+	return results, bundelErrors(err, ctx.Err(), limiterErr)
 }
-
-// func Query111(count int, do func(index int) (interface{}, error), limiter *rate.Limiter, timeout time.Duration) ([]interface{}, error) {
-// 	if count <= 0 {
-// 		return []interface{}{}, nil
-// 	}
-
-// 	start := time.Now()
-// 	type result struct {
-// 		num  int
-// 		data interface{}
-// 		err  error
-// 	}
-
-// 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-// 	defer cancel()
-
-// 	numChan := make(chan int, count)
-// 	for i := 1; i <= count; i++ {
-// 		numChan <- i
-// 	}
-
-// 	results := make([]interface{}, count)
-// 	resultChan := make(chan result, count)
-// 	errs := make([]error, count)
-// 	var wg sync.WaitGroup
-// 	wg.Add(2)
-// 	go func(ctx context.Context) {
-// 		defer wg.Done()
-
-// 		resmap := make(map[int]struct{}, count) // 用于判断查询是否全部完成
-// 		for {
-// 			select {
-// 			case res, ok := <-resultChan:
-// 				if !ok {
-// 					return
-// 				}
-
-// 				if res.err != nil {
-// 					errs[res.num-1] = res.err
-// 					numChan <- res.num
-// 				} else {
-// 					results[res.num-1] = res.data
-// 					errs[res.num-1] = nil
-// 					resmap[res.num] = struct{}{}
-
-// 					log.Printf("num: %d is done.", res.num)
-// 					if len(resmap) == count {
-// 						close(numChan)
-// 						close(resultChan)
-// 						return
-// 					}
-// 				}
-// 			case <-ctx.Done():
-// 				return
-// 			}
-// 		}
-// 	}(ctx)
-
-// 	var limiterErr error
-// 	go func(ctx context.Context) {
-// 		defer wg.Done()
-
-// 		for {
-// 			select {
-// 			case num, ok := <-numChan:
-// 				if !ok {
-// 					return
-// 				}
-// 				err := limiter.Wait(context.Background())
-// 				if err != nil {
-// 					limiterErr = err
-// 					return
-// 				}
-
-// 				go func() {
-// 					data, err := do(num)
-// 					select {
-// 					case resultChan <- result{
-// 						num:  num,
-// 						data: data,
-// 						err:  err,
-// 					}:
-// 					case <-ctx.Done():
-// 						return
-// 					}
-// 				}()
-// 			case <-ctx.Done():
-// 				return
-// 			}
-// 		}
-// 	}(ctx)
-
-// 	wg.Wait()
-
-// 	errMsg := ""
-// 	if ctx.Err() != nil {
-// 		errMsg += ";" + ctx.Err().Error()
-// 	}
-
-// 	if limiterErr != nil {
-// 		errMsg += ";" + limiterErr.Error()
-// 	}
-
-// 	for _, err := range errs {
-// 		if err != nil {
-// 			errMsg += ";" + err.Error()
-// 		}
-// 	}
-
-// 	log.Printf("err msg: %v", errMsg)
-// 	// spew.Dump("results: ", results)
-// 	log.Printf("duration: %s", time.Since(start))
-
-// 	if errMsg != "" {
-// 		return results, errors.New(strings.TrimPrefix(errMsg, ";"))
-// 	}
-
-// 	return results, nil
-// }
