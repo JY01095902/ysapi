@@ -9,14 +9,12 @@ import (
 type ApproveRequest struct {
 	AppKey    string
 	AppSecret string
-	Id        string
+	Data      request.Values
 }
 
 func (req ApproveRequest) ToValues() request.Values {
 	values := request.Values{
-		"data": []request.Values{
-			{"id": req.Id},
-		},
+		"data": req.Data,
 	}
 
 	return values

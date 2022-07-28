@@ -1,4 +1,4 @@
-package vouchersalereturn
+package refundorder
 
 import (
 	"fmt"
@@ -9,26 +9,29 @@ import (
 type AuditRequest struct {
 	AppKey    string
 	AppSecret string
-	Data      request.Values
+	Ids       string
+	PartParam request.Values
 }
 
 func (req AuditRequest) ToValues() request.Values {
 	values := request.Values{
-		"data": req.Data,
+		"ids":       req.Ids,
+		"partParam": req.PartParam,
 	}
 
 	return values
 }
 
 type AuditResponse struct {
-	Code    string         `json:"code"`
-	Message string         `json:"message"`
-	Data    request.Values `json:"data"`
+	Code    string           `json:"code"`
+	Message string           `json:"message"`
+	Data    []request.Values `json:"data"`
 }
 
 func Audit(req AuditRequest) (AuditResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.NewURLRoot+"/yonbip/sd/vouchersalereturn/audit", req.ToValues())
+
+	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/refundorder/audit", req.ToValues())
 	if err != nil {
 		return AuditResponse{}, err
 	}
