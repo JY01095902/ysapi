@@ -7,6 +7,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/jy01095902/ysapi/request"
 	"golang.org/x/time/rate"
 )
 
@@ -56,7 +57,18 @@ func createResultChannel(ctx context.Context, count int) (<-chan int, chan<- res
 
 				if res.err != nil {
 					errs[res.num-1] = res.err
-					numch <- res.num
+					if errors.Is(res.err, request.ErrYonSuiteAPIBizError) {
+						results[res.num-1] = res.data
+						resmap[res.num] = struct{}{}
+
+						if len(resmap) == count {
+							finishSignal <- struct{}{}
+
+							return
+						}
+					} else {
+						numch <- res.num
+					}
 				} else {
 					results[res.num-1] = res.data
 					errs[res.num-1] = nil

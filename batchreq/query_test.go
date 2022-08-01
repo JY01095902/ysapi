@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/jy01095902/ysapi/request"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/time/rate"
 )
@@ -124,4 +125,17 @@ func TestQuery(t *testing.T) {
 	result, err = Query(0, do, limiter, timeout)
 	assert.Nil(t, err)
 	assert.Equal(t, 0, len(result))
+
+	// 查询结果为空(biz error)，不再继续查询
+	do = func(pnum int) (interface{}, error) {
+		return page{
+			PageNumber: pnum,
+			Items:      []string{},
+		}, request.ErrYonSuiteAPIBizError
+	}
+	result, err = Query(1, do, limiter, timeout)
+	assert.Equal(t, request.ErrYonSuiteAPIBizError, err)
+	assert.Equal(t, 1, len(result))
+	r := result[0].(page)
+	assert.Empty(t, r.Items)
 }
