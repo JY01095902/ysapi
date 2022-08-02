@@ -33,7 +33,7 @@ type QueryResponse struct {
 
 func Query(req QueryRequest) (QueryResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.NewURLRoot+"/yonbip/sd/dst/tradeorder/query", req.ToValues())
+	vals, err := apiReq.Post(request.NewURLRoot+"/sd/dst/tradeorder/query", req.ToValues())
 	if err != nil {
 		return QueryResponse{}, err
 	}

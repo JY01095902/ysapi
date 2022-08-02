@@ -122,7 +122,7 @@ type SingleSaveResponse struct {
 
 func SingleSave(req SingleSaveRequest) (SingleSaveResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.NewURLRoot+"/yonbip/sd/vouchersalereturn/singleSave", req.ToValues())
+	vals, err := apiReq.Post(request.NewURLRoot+"/sd/vouchersalereturn/singleSave", req.ToValues())
 	if err != nil {
 		return SingleSaveResponse{}, err
 	}

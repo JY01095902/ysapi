@@ -28,7 +28,7 @@ type ApproveResponse struct {
 
 func Approve(req ApproveRequest) (ApproveResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.NewURLRoot+"/yonbip/sd/vouchersalereturn/approve", req.ToValues())
+	vals, err := apiReq.Post(request.NewURLRoot+"/sd/vouchersalereturn/approve", req.ToValues())
 	if err != nil {
 		return ApproveResponse{}, err
 	}
