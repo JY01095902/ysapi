@@ -29,6 +29,11 @@ func checkResponseBody(body []byte) error {
 		return fmt.Errorf("%w: %s", ErrAPILimit, resp.String())
 	}
 
+	// 操作过于频繁, 请稍后重试
+	if resp.Code == "999" {
+		return fmt.Errorf("%w: %s", ErrAPITooManyCalls, resp.String())
+	}
+
 	return fmt.Errorf("%w: %s", ErrYonSuiteAPIBizError, resp.String())
 }
 
