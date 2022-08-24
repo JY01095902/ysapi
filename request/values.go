@@ -84,3 +84,19 @@ func unmarshal(resType, val interface{}) (interface{}, error) {
 func (vals Values) GetResult(resType interface{}) (interface{}, error) {
 	return unmarshal(resType, vals)
 }
+
+func ConvertValuesTo[T any](input interface{}) (T, error) {
+	var output T
+	b, err := json.Marshal(input)
+	if err != nil {
+		return output, err
+	}
+
+	d := json.NewDecoder(bytes.NewReader(b))
+	d.UseNumber()
+	if err := d.Decode(&output); err != nil {
+		return output, err
+	}
+
+	return output, nil
+}
