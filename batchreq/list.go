@@ -21,18 +21,12 @@ func ListAll(listByPage ListByPage, limiter *rate.Limiter, timeout time.Duration
 		return listByPage(num)
 	}
 
-	getPageCount := func() int {
-		if resp, err := listByPage(1); err == nil {
-			log.Printf("total: %v", resp.Total())
-			log.Printf("page count: %v", resp.PageCount())
-
-			return resp.PageCount()
-		}
-
-		return 0
+	resp, err := listByPage(1)
+	if err != nil {
+		return nil, err
 	}
 
-	result, err := Query(getPageCount(), fetchListByPage, limiter, timeout)
+	result, err := Query(resp.PageCount(), fetchListByPage, limiter, timeout)
 	if err != nil {
 		log.Printf("list all failed, error: %v", err)
 
