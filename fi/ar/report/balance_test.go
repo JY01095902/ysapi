@@ -119,7 +119,8 @@ func TestBalance(t *testing.T) {
 				assert.ErrorIs(t, err, request.ErrCallYonSuiteAPIFailed)
 			}
 		} else {
-			assert.GreaterOrEqual(t, resp.Data.Result[0].EndLocalAmountTotal, float64(0))
+			val := resp.Data.Result[0].Get("end_local_amount_total")
+			assert.GreaterOrEqual(t, val.(float64), float64(0))
 		}
 	}
 }

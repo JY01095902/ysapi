@@ -75,3 +75,53 @@ func Ship(req ShipRequest) (ShipResponse, error) {
 
 	return *resp, nil
 }
+
+func ShipAndUpload(req ShipRequest) (ShipResponse, error) {
+	apiReq := request.New(req.AppKey, req.AppSecret)
+
+	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/shipandupload", req.ToValues())
+	if err != nil {
+		return ShipResponse{}, err
+	}
+
+	res, err := vals.GetResult(ShipResponse{})
+	if err != nil {
+		return ShipResponse{}, err
+	}
+
+	resp, ok := res.(*ShipResponse)
+	if !ok {
+		return ShipResponse{}, fmt.Errorf("%w error: response is not type of ShipResponse", request.ErrCallYonSuiteAPIFailed)
+	}
+
+	if resp.Code != "200" {
+		return *resp, fmt.Errorf("%w error: %s", request.ErrCallYonSuiteAPIFailed, resp.Message)
+	}
+
+	return *resp, nil
+}
+
+func Upload(req ShipRequest) (ShipResponse, error) {
+	apiReq := request.New(req.AppKey, req.AppSecret)
+
+	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/upload", req.ToValues())
+	if err != nil {
+		return ShipResponse{}, err
+	}
+
+	res, err := vals.GetResult(ShipResponse{})
+	if err != nil {
+		return ShipResponse{}, err
+	}
+
+	resp, ok := res.(*ShipResponse)
+	if !ok {
+		return ShipResponse{}, fmt.Errorf("%w error: response is not type of ShipResponse", request.ErrCallYonSuiteAPIFailed)
+	}
+
+	if resp.Code != "200" {
+		return *resp, fmt.Errorf("%w error: %s", request.ErrCallYonSuiteAPIFailed, resp.Message)
+	}
+
+	return *resp, nil
+}

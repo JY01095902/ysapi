@@ -73,24 +73,12 @@ type BalanceResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Data    struct {
-		Result []struct {
-			EndLocalAmountTotal    float64 `json:"end_local_amount_total"`
-			BeginLocalAmountTotall float64 `json:"begin_local_amount_total"`
-			CreditLocalAmountTotal float64 `json:"credit_local_amount_total"`
-			Currency               string  `json:"currency"`
-			DebitAmountTotal       float64 `json:"debit_amount_total"`
-			DebitLocalAmountTotal  float64 `json:"debit_local_amount_total"`
-			Accentity              string  `json:"accentity"`
-			EndAmountTotal         float64 `json:"end_amount_total"`
-			BeginAmountTotal       float64 `json:"begin_amount_total"`
-			CreditAmountTotal      float64 `json:"credit_amount_total"`
-			Customer               int64   `json:"customer"`
-		} `json:"result"`
-		PageIndex        int  `json:"pageIndex"`
-		PageSize         int  `json:"pageSize"`
-		RecordCount      int  `json:"recordCount"`
-		PageCount        int  `json:"pageCount"`
-		NeedConvert      bool `json:"needconvert"`
+		Result           []request.Values `json:"result"`
+		PageIndex        int              `json:"pageIndex"`
+		PageSize         int              `json:"pageSize"`
+		RecordCount      int              `json:"recordCount"`
+		PageCount        int              `json:"pageCount"`
+		NeedConvert      bool             `json:"needconvert"`
 		DynamicCondition struct {
 			Op    string `json:"op"`
 			Items []struct {
