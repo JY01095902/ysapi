@@ -17,7 +17,7 @@ type result struct {
 	err  error
 }
 
-func bundelErrors(errs ...error) error {
+func bundleErrors(errs ...error) error {
 	msg := ""
 	for _, err := range errs {
 		if err != nil {
@@ -87,7 +87,7 @@ func createResultChannel(ctx context.Context, count int) (<-chan int, chan<- res
 	}()
 
 	return numch, resultch, finishSignal, func() ([]interface{}, error) {
-		return results, bundelErrors(errs...)
+		return results, bundleErrors(errs...)
 	}
 }
 
@@ -141,5 +141,5 @@ ReadNum:
 
 	results, err := getResults()
 
-	return results, bundelErrors(err, ctx.Err(), limiterErr)
+	return results, bundleErrors(err, ctx.Err(), limiterErr)
 }

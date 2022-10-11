@@ -2,6 +2,7 @@ package refundorder
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/jy01095902/ysapi/request"
 )
@@ -29,6 +30,15 @@ type QueryResponse struct {
 		TotalCount int              `json:"totalCount"`
 		Infos      []request.Values `json:"info"`
 	} `json:"data"`
+}
+
+func (resp QueryResponse) Total() int {
+	return resp.Data.TotalCount
+}
+func (resp QueryResponse) PageCount() int {
+	cnt := float64(resp.Data.TotalCount) / float64(resp.Data.PageSize)
+
+	return int(math.Ceil(cnt))
 }
 
 func Query(req QueryRequest) (QueryResponse, error) {
