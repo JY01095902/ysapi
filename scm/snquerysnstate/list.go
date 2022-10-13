@@ -64,11 +64,13 @@ type ListResponse struct {
 			StockStatusDoc         int64  `json:"stockStatusDoc"`
 			StockStatusDocName     string `json:"stockStatusDoc_name"`
 			Warehouse              int64  `json:"warehouse"`
+			WarehouseName          string `json:"warehouse_name"`
+			LocationCode           string `json:"location_code"`
+			LocationName           string `json:"location_name"`
 			ProductManageClassCode string `json:"product_ManageClass_code"`
 			ProductSKUName         string `json:"productsku_cName"`
 			ProductManageClassName string `json:"product_ManageClass_name"`
 			UpdateCount            int    `json:"updatecount"`
-			WarehouseName          string `json:"warehouse_name"`
 			ProductManageClass     int64  `json:"product_ManageClass"`
 			ProductSKU             int64  `json:"productsku"`
 			ProductSKUCode         string `json:"productsku_cCode"`
@@ -84,6 +86,14 @@ type ListResponse struct {
 		EndPageIndex   int    `json:"endPageIndex"`
 		PubTs          string `json:"pubts"`
 	} `json:"data"`
+}
+
+func (resp ListResponse) Total() int {
+	return resp.Data.RecordCount
+}
+
+func (resp ListResponse) PageCount() int {
+	return resp.Data.PageCount
 }
 
 func List(req ListRequest) (ListResponse, error) {
