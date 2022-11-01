@@ -9,8 +9,8 @@ import (
 type SimpleVO struct {
 	Field  string
 	Op     string
-	Value1 string
-	Value2 string
+	Value1 interface{}
+	Value2 interface{}
 }
 
 type ListRequest struct {
