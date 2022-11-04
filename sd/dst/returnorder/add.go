@@ -1,7 +1,9 @@
 package returnorder
 
 import (
+	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/jy01095902/ysapi/request"
 )
@@ -39,6 +41,86 @@ type AddResponse struct {
 	Code    string         `json:"code"`
 	Message string         `json:"message"`
 	Data    request.Values `json:"data"`
+}
+
+func (resp AddResponse) IsSuccessed() (bool, string) {
+	type action struct {
+		ExceptionMsg   string         `json:"exceptionMsg"`
+		Code           string         `json:"code"`
+		IsShowMsg      bool           `json:"isShowMsg"`
+		FailCount      string         `json:"failCount"`
+		SucIdAndPubts  request.Values `json:"sucIdAndPubts"`
+		SuccessCount   string         `json:"successCount"`
+		IsExcuteAction bool           `json:"isExcuteAction"`
+		ActionName     string         `json:"actionName"`
+	}
+
+	var actions []action
+	err := json.Unmarshal([]byte(resp.Message), &actions)
+	if err != nil {
+		return false, err.Error()
+	}
+	for _, action := range actions {
+		// id 是创建之后才有的之前不知道
+		// _, extid := action.SucIdAndPubts[id]
+		if action.ActionName == "退换货单新增" {
+			if action.SuccessCount == "1" {
+				return true, ""
+			}
+
+			if action.FailCount == "1" {
+				return false, action.ExceptionMsg
+			}
+		}
+	}
+
+	// 没有订单发货的事件，把data的内容都返回
+	return false, resp.Message
+}
+
+func (resp AddResponse) Timestamp() string {
+	if ok, _ := resp.IsSuccessed(); !ok {
+		return ""
+	}
+
+	type action struct {
+		ExceptionMsg   string         `json:"exceptionMsg"`
+		Code           string         `json:"code"`
+		IsShowMsg      bool           `json:"isShowMsg"`
+		FailCount      string         `json:"failCount"`
+		SucIdAndPubts  request.Values `json:"sucIdAndPubts"`
+		SuccessCount   string         `json:"successCount"`
+		IsExcuteAction bool           `json:"isExcuteAction"`
+		ActionName     string         `json:"actionName"`
+	}
+
+	var actions []action
+	err := json.Unmarshal([]byte(resp.Message), &actions)
+	if err != nil {
+		return ""
+	}
+	for _, action := range actions {
+		if action.ActionName == "退换货单新增" {
+			// 默认第一个
+			// id 是创建之后才有的之前不知道
+			for _, v := range action.SucIdAndPubts {
+				switch val := v.(type) {
+				case int:
+					return strconv.Itoa(val)
+				case int64:
+					return strconv.FormatInt(val, 10)
+				case float64:
+					return strconv.FormatInt(int64(val), 10)
+				case string:
+					return val
+				default:
+					return ""
+				}
+			}
+		}
+	}
+
+	return ""
 }
 
 func Add(req AddRequest) (AddResponse, error) {

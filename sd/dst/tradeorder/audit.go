@@ -150,6 +150,8 @@ func (resp AuditResponse) Timestamp(id string) string {
 				return strconv.Itoa(val)
 			case int64:
 				return strconv.FormatInt(val, 10)
+			case float64:
+				return strconv.FormatInt(int64(val), 10)
 			case string:
 				return val
 			default:

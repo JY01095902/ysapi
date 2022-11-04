@@ -3,6 +3,7 @@ package tradeorder
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 
 	"github.com/jy01095902/ysapi/request"
 )
@@ -95,6 +96,47 @@ func (resp ShipResponse) IsSuccessed(id string) (bool, string) {
 
 	// 没有订单发货的事件，把data的内容都返回
 	return false, resp.Message
+}
+
+func (resp ShipResponse) Timestamp(id string) string {
+	if ok, _ := resp.IsSuccessed(id); !ok {
+		return ""
+	}
+
+	type action struct {
+		ExceptionMsg   string         `json:"exceptionMsg"`
+		Code           string         `json:"code"`
+		IsShowMsg      bool           `json:"isShowMsg"`
+		FailCount      string         `json:"failCount"`
+		SucIdAndPubts  request.Values `json:"sucIdAndPubts"`
+		SuccessCount   string         `json:"successCount"`
+		IsExcuteAction bool           `json:"isExcuteAction"`
+		ActionName     string         `json:"actionName"`
+	}
+
+	var actions []action
+	err := json.Unmarshal([]byte(resp.Message), &actions)
+	if err != nil {
+		return ""
+	}
+	for _, action := range actions {
+		if action.ActionName == "订单发货" {
+			switch val := action.SucIdAndPubts[id].(type) {
+			case int:
+				return strconv.Itoa(val)
+			case int64:
+				return strconv.FormatInt(val, 10)
+			case float64:
+				return strconv.FormatInt(int64(val), 10)
+			case string:
+				return val
+			default:
+				return ""
+			}
+		}
+	}
+
+	return ""
 }
 
 func Ship(req ShipRequest) (ShipResponse, error) {
