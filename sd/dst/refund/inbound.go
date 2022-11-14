@@ -2,6 +2,7 @@ package refund
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/jy01095902/ysapi/request"
 )
@@ -82,6 +83,7 @@ type InboundResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Data    []struct {
+		ExceptionMsg   string         `json:"exceptionMsg"`
 		Code           string         `json:"code"`
 		IsShowMsg      bool           `json:"isShowMsg"`
 		ExternalMap    request.Values `json:"externalMap"`
@@ -91,6 +93,49 @@ type InboundResponse struct {
 		IsExcuteAction bool           `json:"isExcuteAction"`
 		ActionName     string         `json:"actionName"`
 	} `json:"data"`
+}
+
+func (resp InboundResponse) IsSuccessed(id string) (bool, string) {
+	for _, action := range resp.Data {
+		_, extid := action.SucIdAndPubts[id]
+		if action.ActionName == "确认入库" {
+			if action.SuccessCount == "1" && extid {
+				return true, ""
+			}
+
+			if action.FailCount == "1" {
+				return false, action.ExceptionMsg
+			}
+		}
+	}
+
+	// 没有确认入库的事件，把data的内容都返回
+	return false, resp.Message
+}
+
+func (resp InboundResponse) Timestamp(id string) string {
+	if ok, _ := resp.IsSuccessed(id); !ok {
+		return ""
+	}
+
+	for _, action := range resp.Data {
+		if action.ActionName == "确认入库" {
+			switch val := action.SucIdAndPubts[id].(type) {
+			case int:
+				return strconv.Itoa(val)
+			case int64:
+				return strconv.FormatInt(val, 10)
+			case float64:
+				return strconv.FormatInt(int64(val), 10)
+			case string:
+				return val
+			default:
+				return ""
+			}
+		}
+	}
+
+	return ""
 }
 
 func Inbound(req InboundRequest) (InboundResponse, error) {
