@@ -27,20 +27,26 @@ func (req ListRequest) ToValues() request.Values {
 	return values
 }
 
-type ListDto request.Values
-
 type ListResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Data    struct {
-		PageIndex      int       `json:"pageIndex"`
-		PageSize       int       `json:"pageSize"`
-		RecordCount    int       `json:"recordCount"`
-		RecordList     []ListDto `json:"recordList"`
-		PageCount      int       `json:"pageCount"`
-		BeginPageIndex int       `json:"beginPageIndex"`
-		EndPageIndex   int       `json:"endPageIndex"`
+		PageIndex      int              `json:"pageIndex"`
+		PageSize       int              `json:"pageSize"`
+		RecordCount    int              `json:"recordCount"`
+		RecordList     []request.Values `json:"recordList"`
+		PageCount      int              `json:"pageCount"`
+		BeginPageIndex int              `json:"beginPageIndex"`
+		EndPageIndex   int              `json:"endPageIndex"`
 	} `json:"data"`
+}
+
+func (resp ListResponse) Total() int {
+	return resp.Data.RecordCount
+}
+
+func (resp ListResponse) PageCount() int {
+	return resp.Data.PageCount
 }
 
 func List(req ListRequest) (ListResponse, error) {
