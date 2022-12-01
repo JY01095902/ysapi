@@ -81,6 +81,8 @@ func (resp UnauditResponse) Timestamp(id string) string {
 				return strconv.FormatInt(int64(val), 10)
 			case string:
 				return val
+			case json.Number:
+				return val.String()
 			default:
 				return ""
 			}

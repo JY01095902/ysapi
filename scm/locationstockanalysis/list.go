@@ -49,6 +49,7 @@ func (resp ListResponse) PageCount() int {
 	return resp.Data.PageCount
 }
 
+// 60秒20次，已经最大限制了，不同意改了
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 	vals, err := apiReq.Post(request.LocationStockAnalysisList, req.ToValues())
