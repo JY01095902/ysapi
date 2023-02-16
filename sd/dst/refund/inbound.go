@@ -13,6 +13,7 @@ type InboundRequest struct {
 	AppSecret  string
 	Id         string
 	Ts         string
+	Stocks     []request.Values
 	StocksInfo []request.Values
 }
 
@@ -20,7 +21,7 @@ func (req InboundRequest) ToValues() request.Values {
 	values := request.Values{
 		"id":         req.Id,
 		"ts":         req.Ts,
-		"stocks":     []request.Values{},
+		"stocks":     req.Stocks,
 		"stocksInfo": req.StocksInfo,
 	}
 
