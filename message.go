@@ -115,13 +115,13 @@ func (e EventPlaintext) UnmarshalContent() (EventContent, error) {
 }
 
 type EventContent struct {
-	AccessToken    string `json:"access_token"`
-	YHTUser        string `json:"yhtUser"`
-	TenantId       string `json:"tenantId"`
-	Archive        string `json:"archive"`
-	YHTAccessToken string `json:"yht_access_token"`
-	Fullname       string `json:"fullname"`
-	Id             string `json:"id"`
+	AccessToken    string      `json:"access_token"`
+	YHTUser        string      `json:"yhtUser"`
+	TenantId       string      `json:"tenantId"`
+	Archive        string      `json:"archive"`
+	YHTAccessToken string      `json:"yht_access_token"`
+	Fullname       string      `json:"fullname"`
+	Id             json.Number `json:"id"`
 }
 
 func (e EventContent) String() string {
