@@ -122,6 +122,9 @@ type EventContent struct {
 	YHTAccessToken string      `json:"yht_access_token"`
 	Fullname       string      `json:"fullname"`
 	Id             json.Number `json:"id"`
+	EventParams    struct {
+		Data []Values `json:"data"`
+	} `json:"eventParams"` // 库存分配事件的数据在这里
 }
 
 func (e EventContent) String() string {
