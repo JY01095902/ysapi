@@ -1,6 +1,7 @@
 package snquerysnstate
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/jy01095902/ysapi/request"
@@ -57,29 +58,29 @@ type ListResponse struct {
 		PageSize    int `json:"pageSize"`
 		RecordCount int `json:"recordCount"`
 		RecordList  []struct {
-			Product                int64  `json:"product"`
-			BatchNo                string `json:"batchno"`
-			Org                    string `json:"org"`
-			ProductCode            string `json:"product_cCode"`
-			StockStatusDoc         int64  `json:"stockStatusDoc"`
-			StockStatusDocName     string `json:"stockStatusDoc_name"`
-			Warehouse              int64  `json:"warehouse"`
-			WarehouseName          string `json:"warehouse_name"`
-			LocationCode           string `json:"location_code"`
-			LocationName           string `json:"location_name"`
-			ProductManageClassCode string `json:"product_ManageClass_code"`
-			ProductSKUName         string `json:"productsku_cName"`
-			ProductManageClassName string `json:"product_ManageClass_name"`
-			UpdateCount            int    `json:"updatecount"`
-			ProductManageClass     int64  `json:"product_ManageClass"`
-			ProductSKU             int64  `json:"productsku"`
-			ProductSKUCode         string `json:"productsku_cCode"`
-			ProductName            string `json:"product_cName"`
-			SNState                string `json:"snstate"`
-			Id                     int64  `json:"id"`
-			SN                     string `json:"sn"`
-			PubTs                  string `json:"pubts"`
-			OrgName                string `json:"org_name"`
+			Product                json.Number `json:"product"`
+			BatchNo                string      `json:"batchno"`
+			Org                    string      `json:"org"`
+			ProductCode            string      `json:"product_cCode"`
+			StockStatusDoc         json.Number `json:"stockStatusDoc"`
+			StockStatusDocName     string      `json:"stockStatusDoc_name"`
+			Warehouse              json.Number `json:"warehouse"`
+			WarehouseName          string      `json:"warehouse_name"`
+			LocationCode           string      `json:"location_code"`
+			LocationName           string      `json:"location_name"`
+			ProductManageClassCode string      `json:"product_ManageClass_code"`
+			ProductSKUName         string      `json:"productsku_cName"`
+			ProductManageClassName string      `json:"product_ManageClass_name"`
+			UpdateCount            int         `json:"updatecount"`
+			ProductManageClass     json.Number `json:"product_ManageClass"`
+			ProductSKU             json.Number `json:"productsku"`
+			ProductSKUCode         string      `json:"productsku_cCode"`
+			ProductName            string      `json:"product_cName"`
+			SNState                string      `json:"snstate"`
+			Id                     json.Number `json:"id"`
+			SN                     string      `json:"sn"`
+			PubTs                  string      `json:"pubts"`
+			OrgName                string      `json:"org_name"`
 		} `json:"recordList"`
 		PageCount      int    `json:"pageCount"`
 		BeginPageIndex int    `json:"beginPageIndex"`
