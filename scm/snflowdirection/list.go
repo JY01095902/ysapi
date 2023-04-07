@@ -63,7 +63,7 @@ func List(req ListRequest) (ListResponse, error) {
 	}
 
 	if len(resp.Data.RecordList) == 0 {
-		return *resp, fmt.Errorf("%w error: not found sn flow", request.ErrYonSuiteAPIBizError)
+		return *resp, fmt.Errorf("error: %w sn flow", request.ErrNotFound)
 	}
 
 	return *resp, nil

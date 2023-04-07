@@ -119,7 +119,7 @@ func List(req ListRequest) (ListResponse, error) {
 	}
 
 	if len(resp.Data.RecordList) == 0 {
-		return *resp, fmt.Errorf("%w error: not found sn state", request.ErrYonSuiteAPIBizError)
+		return *resp, fmt.Errorf("error: %w sn state", request.ErrNotFound)
 	}
 
 	return *resp, nil

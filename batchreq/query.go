@@ -57,7 +57,7 @@ func createResultChannel(ctx context.Context, count int) (<-chan int, chan<- res
 
 				if res.err != nil {
 					errs[res.num-1] = res.err
-					if errors.Is(res.err, request.ErrYonSuiteAPIBizError) {
+					if errors.Is(res.err, request.ErrYonSuiteAPIBizError) || errors.Is(res.err, request.ErrNotFound) {
 						results[res.num-1] = res.data
 						resmap[res.num] = struct{}{}
 
