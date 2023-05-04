@@ -75,7 +75,7 @@ func TestList(t *testing.T) {
 				}
 			}
 		} else {
-			assert.Equal(t, sn, resp.Data.RecordList[0].SN)
+			assert.Equal(t, sn, resp.Data.RecordList[0]["sn"])
 		}
 	}
 }

@@ -1,7 +1,6 @@
 package snquerysnstate
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/jy01095902/ysapi/request"
@@ -54,34 +53,36 @@ type ListResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 	Data    struct {
-		PageIndex   int `json:"pageIndex"`
-		PageSize    int `json:"pageSize"`
-		RecordCount int `json:"recordCount"`
-		RecordList  []struct {
-			Product                json.Number `json:"product"`
-			BatchNo                string      `json:"batchno"`
-			Org                    string      `json:"org"`
-			ProductCode            string      `json:"product_cCode"`
-			StockStatusDoc         json.Number `json:"stockStatusDoc"`
-			StockStatusDocName     string      `json:"stockStatusDoc_name"`
-			Warehouse              json.Number `json:"warehouse"`
-			WarehouseName          string      `json:"warehouse_name"`
-			LocationCode           string      `json:"location_code"`
-			LocationName           string      `json:"location_name"`
-			ProductManageClassCode string      `json:"product_ManageClass_code"`
-			ProductSKUName         string      `json:"productsku_cName"`
-			ProductManageClassName string      `json:"product_ManageClass_name"`
-			UpdateCount            int         `json:"updatecount"`
-			ProductManageClass     json.Number `json:"product_ManageClass"`
-			ProductSKU             json.Number `json:"productsku"`
-			ProductSKUCode         string      `json:"productsku_cCode"`
-			ProductName            string      `json:"product_cName"`
-			SNState                string      `json:"snstate"`
-			Id                     json.Number `json:"id"`
-			SN                     string      `json:"sn"`
-			PubTs                  string      `json:"pubts"`
-			OrgName                string      `json:"org_name"`
-		} `json:"recordList"`
+		PageIndex   int              `json:"pageIndex"`
+		PageSize    int              `json:"pageSize"`
+		RecordCount int              `json:"recordCount"`
+		RecordList  []request.Values `json:"recordList"`
+		// RecordList  []struct {
+		// 	Product                json.Number `json:"product"`
+		// 	BatchNo                string      `json:"batchno"`
+		// 	Org                    string      `json:"org"`
+		// 	ProductCode            string      `json:"product_cCode"`
+		// 	StockStatusDoc         json.Number `json:"stockStatusDoc"`
+		// 	StockStatusDocName     string      `json:"stockStatusDoc_name"`
+		// 	Warehouse              json.Number `json:"warehouse"`
+		// 	WarehouseName          string      `json:"warehouse_name"`
+		// 	Location               json.Number `json:"location"`
+		// 	LocationCode           string      `json:"location_code"`
+		// 	LocationName           string      `json:"location_name"`
+		// 	ProductManageClassCode string      `json:"product_ManageClass_code"`
+		// 	ProductSKUName         string      `json:"productsku_cName"`
+		// 	ProductManageClassName string      `json:"product_ManageClass_name"`
+		// 	UpdateCount            int         `json:"updatecount"`
+		// 	ProductManageClass     json.Number `json:"product_ManageClass"`
+		// 	ProductSKU             json.Number `json:"productsku"`
+		// 	ProductSKUCode         string      `json:"productsku_cCode"`
+		// 	ProductName            string      `json:"product_cName"`
+		// 	SNState                string      `json:"snstate"`
+		// 	Id                     json.Number `json:"id"`
+		// 	SN                     string      `json:"sn"`
+		// 	PubTs                  string      `json:"pubts"`
+		// 	OrgName                string      `json:"org_name"`
+		// } `json:"recordList"`
 		PageCount      int    `json:"pageCount"`
 		BeginPageIndex int    `json:"beginPageIndex"`
 		EndPageIndex   int    `json:"endPageIndex"`
@@ -118,9 +119,10 @@ func List(req ListRequest) (ListResponse, error) {
 		return *resp, fmt.Errorf("%w error: %s", request.ErrCallYonSuiteAPIFailed, resp.Message)
 	}
 
-	if len(resp.Data.RecordList) == 0 {
-		return *resp, fmt.Errorf("error: %w sn state", request.ErrNotFound)
-	}
+	// 没查到也返回错误的话会影响判断，每次err的时候还要判断是正常错误还是结果为空
+	// if len(resp.Data.RecordList) == 0 {
+	// 	return *resp, fmt.Errorf("error: %w sn state", request.ErrNotFound)
+	// }
 
 	return *resp, nil
 }
