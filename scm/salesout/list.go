@@ -3,6 +3,7 @@ package salesout
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"strconv"
 
 	"github.com/jy01095902/ysapi/request"
@@ -93,6 +94,15 @@ type ListResponse struct {
 		EndPageIndex   int       `json:"endPageIndex"`
 		PubTs          string    `json:"pubts"`
 	} `json:"data"`
+}
+
+func (resp ListResponse) Total() int {
+	return resp.Data.RecordCount
+}
+func (resp ListResponse) PageCount() int {
+	cnt := float64(resp.Data.RecordCount) / float64(resp.Data.PageSize)
+
+	return int(math.Ceil(cnt))
 }
 
 func List(req ListRequest) (ListResponse, error) {
