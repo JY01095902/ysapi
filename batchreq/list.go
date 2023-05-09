@@ -1,6 +1,7 @@
 package batchreq
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -21,9 +22,14 @@ func ListAll(listByPage ListByPage, limiter *rate.Limiter, timeout time.Duration
 		return listByPage(num)
 	}
 
-	resp, err := listByPage(1)
+	qres, err := Query(1, fetchListByPage, limiter, timeout)
 	if err != nil {
 		return nil, err
+	}
+
+	resp, ok := qres[0].(ListResponse)
+	if !ok {
+		return nil, fmt.Errorf("query result is not ListResponse")
 	}
 
 	result, err := Query(resp.PageCount(), fetchListByPage, limiter, timeout)
