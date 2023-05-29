@@ -1,6 +1,7 @@
 package request
 
 import (
+	"bytes"
 	"crypto/aes"
 	"crypto/cipher"
 	"crypto/sha1"
@@ -66,8 +67,11 @@ func (e EventMessage) Decrypt(appKey, appSecret string) (EventPlaintext, error) 
 	}
 
 	var eventPlaintext EventPlaintext
-	if err := json.Unmarshal([]byte(plaintext), &eventPlaintext); err != nil {
-		return EventPlaintext{}, err
+
+	d := json.NewDecoder(bytes.NewReader([]byte(plaintext)))
+	d.UseNumber()
+	if err := d.Decode(&eventPlaintext); err != nil {
+		return eventPlaintext, err
 	}
 
 	return eventPlaintext, nil
@@ -92,21 +96,27 @@ func (e EventPlaintext) String() string {
 
 func (e EventPlaintext) UnmarshalContent() (EventContent, error) {
 	var content EventContent
-	if err := json.Unmarshal([]byte(e.Content), &content); err != nil {
-		return EventContent{}, err
+
+	d := json.NewDecoder(bytes.NewReader([]byte(e.Content)))
+	d.UseNumber()
+	if err := d.Decode(&content); err != nil {
+		return content, err
 	}
 
 	return content, nil
 }
 
 type EventContent struct {
-	AccessToken    string `json:"access_token"`
-	YHTUser        string `json:"yhtUser"`
-	TenantId       string `json:"tenantId"`
-	Archive        string `json:"archive"`
-	YHTAccessToken string `json:"yht_access_token"`
-	Fullname       string `json:"fullname"`
-	Id             int64  `json:"id"`
+	AccessToken    string      `json:"access_token"`
+	YHTUser        string      `json:"yhtUser"`
+	TenantId       string      `json:"tenantId"`
+	Archive        string      `json:"archive"`
+	YHTAccessToken string      `json:"yht_access_token"`
+	Fullname       string      `json:"fullname"`
+	Id             json.Number `json:"id"`
+	EventParams    struct {
+		Data []Values `json:"data"`
+	} `json:"eventParams"` // 库存分配事件的数据在这里
 }
 
 func (e EventContent) String() string {
@@ -121,8 +131,10 @@ func (e EventContent) UnmarshalArchive() (Values, error) {
 	}
 
 	var val Values
-	if err := json.Unmarshal([]byte(e.Archive), &val); err != nil {
-		return nil, err
+	d := json.NewDecoder(bytes.NewReader([]byte(e.Archive)))
+	d.UseNumber()
+	if err := d.Decode(&val); err != nil {
+		return val, err
 	}
 
 	return val, nil
@@ -197,7 +209,13 @@ func decryptMessage(ciphertext, secret string) (string, string, error) {
 
 func ParseEventMessage(message string) (EventMessage, error) {
 	var eventMessage EventMessage
-	err := json.Unmarshal([]byte(message), &eventMessage)
+	d := json.NewDecoder(bytes.NewReader([]byte(message)))
+	d.UseNumber()
+	if err := d.Decode(&eventMessage); err != nil {
+		return eventMessage, err
+	}
 
-	return eventMessage, err
+	// err := json.Unmarshal([]byte(message), &eventMessage)
+
+	return eventMessage, nil
 }
