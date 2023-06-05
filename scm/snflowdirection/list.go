@@ -41,6 +41,14 @@ type ListResponse struct {
 	} `json:"data"`
 }
 
+func (resp ListResponse) Total() int {
+	return resp.Data.RecordCount
+}
+
+func (resp ListResponse) PageCount() int {
+	return resp.Data.PageCount
+}
+
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 	vals, err := apiReq.Post(request.NewURLRoot+"/scm/snflowdirection/list", req.ToValues())
