@@ -43,3 +43,36 @@ func Get(req DetailRequest) (DetailResponse, error) {
 
 	return *res, nil
 }
+
+type DetailValuesResponse struct {
+	Code    string         `json:"code"`
+	Message string         `json:"message"`
+	Data    request.Values `json:"data"`
+}
+
+// response 里用 values
+func Detail(req DetailRequest) (DetailValuesResponse, error) {
+	apiReq := request.New(req.AppKey, req.AppSecret)
+	vals, err := apiReq.Get(request.SalesOutDetailURL, map[string]string{
+		"id": req.Id,
+	})
+	if err != nil {
+		return DetailValuesResponse{}, err
+	}
+
+	resp, err := vals.GetResult(DetailValuesResponse{})
+	if err != nil {
+		return DetailValuesResponse{}, err
+	}
+
+	res, ok := resp.(*DetailValuesResponse)
+	if !ok {
+		return DetailValuesResponse{}, fmt.Errorf("%w error: response is not type of DetailValuesResponse", request.ErrCallYonSuiteAPIFailed)
+	}
+
+	if res.Code != "200" {
+		return *res, fmt.Errorf("%w error: %s", request.ErrCallYonSuiteAPIFailed, res.Message)
+	}
+
+	return *res, nil
+}
