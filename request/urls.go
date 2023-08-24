@@ -1,10 +1,12 @@
 package request
 
-var tokenURL = "https://open.yonyoucloud.com/open-auth/selfAppAuth/getAccessToken"
+var tokenURLRoot = "https://open.yonyoucloud.com"
+var tokenURL = tokenURLRoot + "/open-auth/selfAppAuth/getAccessToken"
 
-var urlRoot = "https://api.diwork.com/yonbip"
+var urlRoot = "https://yonbip.diwork.com/iuap-api-gateway/yonbip"
 var URLRoot = urlRoot
-var NewURLRoot = "https://yonbip.diwork.com/iuap-api-gateway/yonbip"
+
+// var NewURLRoot = "https://yonbip.diwork.com/iuap-api-gateway/yonbip"
 
 // digitalModel
 var digitalModelRoot = urlRoot + "/digitalModel"

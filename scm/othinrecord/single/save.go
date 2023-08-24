@@ -28,7 +28,7 @@ type SingleSaveResponse struct {
 
 func Save(req SingleSaveRequest) (SingleSaveResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.NewURLRoot+"/scm/othinrecord/single/save", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/scm/othinrecord/single/save", req.ToValues())
 	if err != nil {
 		return SingleSaveResponse{}, err
 	}
