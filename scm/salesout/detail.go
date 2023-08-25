@@ -20,7 +20,7 @@ type DetailResponse struct {
 
 func Get(req DetailRequest) (DetailResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Get(request.SalesOutDetailURL, map[string]string{
+	vals, err := apiReq.Get(request.URLRoot+"/yonbip/scm/salesout/detail", map[string]string{
 		"id": req.Id,
 	})
 	if err != nil {
@@ -53,7 +53,7 @@ type DetailValuesResponse struct {
 // response 里用 values
 func Detail(req DetailRequest) (DetailValuesResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Get(request.SalesOutDetailURL, map[string]string{
+	vals, err := apiReq.Get(request.URLRoot+"/yonbip/scm/salesout/detail", map[string]string{
 		"id": req.Id,
 	})
 	if err != nil {

@@ -37,7 +37,7 @@ type DetailResponse struct {
 
 func Get(req DetailRequest) (DetailResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Get(request.StoreOutDetailURL, map[string]string{
+	vals, err := apiReq.Get(request.URLRoot+"/yonbip/scm/storeout/detail", map[string]string{
 		"id": req.Id,
 	})
 	if err != nil {

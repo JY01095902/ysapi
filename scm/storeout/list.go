@@ -76,7 +76,7 @@ type ListResponse struct {
 
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.StoreOutListURL, req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/scm/storeout/list", req.ToValues())
 	if err != nil {
 		return ListResponse{}, err
 	}
@@ -104,7 +104,8 @@ func List(req ListRequest) (ListResponse, error) {
 
 func ListAll(req ListRequest) ([]ListResponse, error) {
 	var list []ListResponse
-	batreq := batchreq.New(req.AppKey, req.AppSecret, request.StoreOutListURL, req.ToValues(), "pageIndex", "pageSize", "recordCount")
+	url := request.URLRoot + "/yonbip/scm/storeout/list"
+	batreq := batchreq.New(req.AppKey, req.AppSecret, url, req.ToValues(), "pageIndex", "pageSize", "recordCount")
 	// if batreq.ItemsTotal() == 0 {
 	// 	return nil, errors.New("items total is 0")
 	// }
