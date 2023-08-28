@@ -35,74 +35,76 @@ func (req AuditRequest) ToValues() request.Values {
 
 /*
 ERROR
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "exceptionMsg": "TEST20221025001企业发货且非虚拟商品的订单快递公司不能为空,请自动匹配!",
-            "code": "1",
-            "isShowMsg": true,
-            "failCount": "1",
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "订单客审"
-        }
-    ]
-}
+
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "exceptionMsg": "TEST20221025001企业发货且非虚拟商品的订单快递公司不能为空,请自动匹配!",
+	            "code": "1",
+	            "isShowMsg": true,
+	            "failCount": "1",
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "订单客审"
+	        }
+	    ]
+	}
 
 SUCCESS
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "code": "1",
-            "isShowMsg": true,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1575944756563279907": 1666677696000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "订单客审"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1575944756563279907": 1666677696000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "获取菜鸟序列号"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1575944756563279907": 1666677696000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "提交存量"
-        },
-        {
-            "exceptionMsg": "该店铺未设置免审策略！",
-            "code": "1",
-            "isShowMsg": false,
-            "failCount": "1",
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "财审免审检查"
-        }
-    ]
-}
+
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "code": "1",
+	            "isShowMsg": true,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1575944756563279907": 1666677696000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "订单客审"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1575944756563279907": 1666677696000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "获取菜鸟序列号"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1575944756563279907": 1666677696000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "提交存量"
+	        },
+	        {
+	            "exceptionMsg": "该店铺未设置免审策略！",
+	            "code": "1",
+	            "isShowMsg": false,
+	            "failCount": "1",
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "财审免审检查"
+	        }
+	    ]
+	}
 */
 type AuditResponse struct {
 	Code    string `json:"code"`
@@ -168,7 +170,7 @@ func (resp AuditResponse) Timestamp(id string) string {
 func Audit(req AuditRequest) (AuditResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/audit", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/audit", req.ToValues())
 	if err != nil {
 		return AuditResponse{}, err
 	}

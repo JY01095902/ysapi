@@ -28,7 +28,7 @@ type AuditResponse struct {
 
 func Audit(req AuditRequest) (AuditResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.URLRoot+"/sd/vouchersalereturn/audit", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/vouchersalereturn/audit", req.ToValues())
 	if err != nil {
 		return AuditResponse{}, err
 	}

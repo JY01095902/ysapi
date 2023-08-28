@@ -73,7 +73,7 @@ func (resp ListResponse) PageCount() int {
 
 func List(req ListRequest) (ListResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.URLRoot+"/sd/voucherorder/list", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/voucherorder/list", req.ToValues())
 	if err != nil {
 		return ListResponse{}, err
 	}

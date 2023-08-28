@@ -20,7 +20,7 @@ type DetailResponse struct {
 
 func Detail(req DetailRequest) (DetailResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Get(request.URLRoot+"/sd/voucherorder/detail", map[string]string{
+	vals, err := apiReq.Get(request.URLRoot+"/yonbip/sd/voucherorder/detail", map[string]string{
 		"id": req.Id,
 	})
 	if err != nil {

@@ -29,57 +29,57 @@ func (req InboundRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "code": "1",
-            "isShowMsg": true,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1564232234717675521": 1665300958000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "确认入库"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1564232234717675521": 1665300958000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "确认入库通知AG退款"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1564232234717675521": 1665300958000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "提交存量"
-        },
-        {
-            "exceptionMsg": "退货换单没有换货行，无需换货执行！",
-            "code": "1",
-            "isShowMsg": true,
-            "failCount": "1",
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "换货执行"
-        }
-    ]
-}
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "code": "1",
+	            "isShowMsg": true,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1564232234717675521": 1665300958000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "确认入库"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1564232234717675521": 1665300958000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "确认入库通知AG退款"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1564232234717675521": 1665300958000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "提交存量"
+	        },
+	        {
+	            "exceptionMsg": "退货换单没有换货行，无需换货执行！",
+	            "code": "1",
+	            "isShowMsg": true,
+	            "failCount": "1",
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "换货执行"
+	        }
+	    ]
+	}
 */
 type InboundResponse struct {
 	Code    string `json:"code"`
@@ -145,7 +145,7 @@ func (resp InboundResponse) Timestamp(id string) string {
 func Inbound(req InboundRequest) (InboundResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/refund/inbound", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/refund/inbound", req.ToValues())
 	if err != nil {
 		return InboundResponse{}, err
 	}

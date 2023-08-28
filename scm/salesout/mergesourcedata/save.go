@@ -51,7 +51,7 @@ type SaveResponse struct {
 
 func Save(req SaveRequest) (SaveResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.URLRoot+"/scm/salesout/mergeSourceData/save", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/scm/salesout/mergeSourceData/save", req.ToValues())
 	if err != nil {
 		return SaveResponse{}, err
 	}

@@ -25,36 +25,36 @@ func (req FinApproveRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "code": "1",
-            "isShowMsg": true,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1575944756563279907": 1666678600000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "订单财审"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1575944756563279907": 1666678600000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "发送Wms发货单"
-        }
-    ]
-}
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "code": "1",
+	            "isShowMsg": true,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1575944756563279907": 1666678600000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "订单财审"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1575944756563279907": 1666678600000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "发送Wms发货单"
+	        }
+	    ]
+	}
 */
 type FinApproveResponse struct {
 	Code    string `json:"code"`
@@ -120,7 +120,7 @@ func (resp FinApproveResponse) Timestamp(id string) string {
 func FinApprove(req FinApproveRequest) (FinApproveResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/finapprove", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/finapprove", req.ToValues())
 	if err != nil {
 		return FinApproveResponse{}, err
 	}

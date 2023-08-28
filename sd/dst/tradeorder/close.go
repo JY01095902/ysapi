@@ -35,134 +35,136 @@ func (req CloseRequest) ToValues() request.Values {
 
 /*
 ERROR
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "exceptionMsg": "没有需要操作的单据",
-            "code": "1",
-            "isShowMsg": true,
-            "failCount": "1",
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "订单关闭"
-        },
-        {
-            "exceptionMsg": "没有需要操作的单据",
-            "code": "1",
-            "isShowMsg": true,
-            "failCount": "1",
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "订单关闭"
-        }
-    ]
-}
+
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "exceptionMsg": "没有需要操作的单据",
+	            "code": "1",
+	            "isShowMsg": true,
+	            "failCount": "1",
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "订单关闭"
+	        },
+	        {
+	            "exceptionMsg": "没有需要操作的单据",
+	            "code": "1",
+	            "isShowMsg": true,
+	            "failCount": "1",
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "订单关闭"
+	        }
+	    ]
+	}
 
 SUCCESS
-{
-    "code": "200",
-    "message": "操作成功",
-    "data": [
-        {
-            "code": "1",
-            "isShowMsg": true,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183721": 1675321224000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "订单关闭"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183721": 1675321224000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "取消顺丰WMS出库单"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183721": 1675321224000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "提交存量"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183721": 1675321224000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "取消奇门单据"
-        },
-        {
-            "code": "1",
-            "isShowMsg": true,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183727": 1675321225000
-            },
-            "successCount": "1",
-            "isExcuteAction": true,
-            "actionName": "订单关闭"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183727": 1675321225000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "取消顺丰WMS出库单"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183727": 1675321225000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "提交存量"
-        },
-        {
-            "code": "1",
-            "isShowMsg": false,
-            "externalMap": {},
-            "failCount": "0",
-            "sucIdAndPubts": {
-                "1648795880186183727": 1675321225000
-            },
-            "successCount": "0",
-            "isExcuteAction": true,
-            "actionName": "取消奇门单据"
-        }
-    ]
-}
+
+	{
+	    "code": "200",
+	    "message": "操作成功",
+	    "data": [
+	        {
+	            "code": "1",
+	            "isShowMsg": true,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183721": 1675321224000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "订单关闭"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183721": 1675321224000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "取消顺丰WMS出库单"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183721": 1675321224000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "提交存量"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183721": 1675321224000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "取消奇门单据"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": true,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183727": 1675321225000
+	            },
+	            "successCount": "1",
+	            "isExcuteAction": true,
+	            "actionName": "订单关闭"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183727": 1675321225000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "取消顺丰WMS出库单"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183727": 1675321225000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "提交存量"
+	        },
+	        {
+	            "code": "1",
+	            "isShowMsg": false,
+	            "externalMap": {},
+	            "failCount": "0",
+	            "sucIdAndPubts": {
+	                "1648795880186183727": 1675321225000
+	            },
+	            "successCount": "0",
+	            "isExcuteAction": true,
+	            "actionName": "取消奇门单据"
+	        }
+	    ]
+	}
 */
 type CloseResponse struct {
 	Code    string `json:"code"`
@@ -228,7 +230,7 @@ func (resp CloseResponse) Timestamp(id string) string {
 func Close(req CloseRequest) (CloseResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/orderclose", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/orderclose", req.ToValues())
 	if err != nil {
 		return CloseResponse{}, err
 	}

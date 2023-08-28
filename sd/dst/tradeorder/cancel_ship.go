@@ -25,11 +25,11 @@ func (req CancelShipRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "[{\"actionName\":\"取消发货\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1632457936260825106\":\"2023-01-09 16:18:40\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632457936260825106\":\"2023-01-09 16:18:40\"},\"successCount\":\"1\"}]",
-    "data": null
-}
+	{
+	    "code": "200",
+	    "message": "[{\"actionName\":\"取消发货\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1632457936260825106\":\"2023-01-09 16:18:40\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632457936260825106\":\"2023-01-09 16:18:40\"},\"successCount\":\"1\"}]",
+	    "data": null
+	}
 */
 type CancelShipResponse struct {
 	Code    string         `json:"code"`
@@ -117,7 +117,7 @@ func (resp CancelShipResponse) Timestamp(id string) string {
 func CancelShip(req CancelShipRequest) (CancelShipResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/cancelship", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/cancelship", req.ToValues())
 	if err != nil {
 		return CancelShipResponse{}, err
 	}

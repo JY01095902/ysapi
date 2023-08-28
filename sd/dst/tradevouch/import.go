@@ -23,13 +23,13 @@ func (req ImportRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "导入原单成功 导入失败0单 ",
-    "data": {
-        "1575944747991171084": "TEST20221025001"
-    }
-}
+	{
+	    "code": "200",
+	    "message": "导入原单成功 导入失败0单 ",
+	    "data": {
+	        "1575944747991171084": "TEST20221025001"
+	    }
+	}
 */
 type ImportResponse struct {
 	Code    string         `json:"code"`
@@ -54,7 +54,7 @@ func (resp ImportResponse) IsSuccessed(tid string) bool {
 func Import(req ImportRequest) (ImportResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradevouch/import", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradevouch/import", req.ToValues())
 	if err != nil {
 		return ImportResponse{}, err
 	}

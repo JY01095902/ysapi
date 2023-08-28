@@ -92,7 +92,7 @@ type BalanceResponse struct {
 
 func Balance(req BalanceRequest) (BalanceResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
-	vals, err := apiReq.Post(request.URLRoot+"/fi/ar/report/balance", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/fi/ar/report/balance", req.ToValues())
 	if err != nil {
 		return BalanceResponse{}, err
 	}

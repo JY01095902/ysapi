@@ -81,74 +81,77 @@ func (req ModifyRequest) ToValues() request.Values {
 
 /*
 正确的
-{
-    "code": "200",
-    "message": "[{\"actionName\":\"订单修改\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:53\"},\"successCount\":\"1\"},{\"actionName\":\"自动匹配\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"重量重算\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"表头汇总表体仓库\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"}]",
-    "data": null
-}
+
+	{
+	    "code": "200",
+	    "message": "[{\"actionName\":\"订单修改\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:53\"},\"successCount\":\"1\"},{\"actionName\":\"自动匹配\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"重量重算\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"表头汇总表体仓库\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1632373780662714390\":\"2023-01-09 11:09:54\"},\"successCount\":\"1\"}]",
+	    "data": null
+	}
 
 格式化后
 [
-    {
-        "actionName": "订单修改",
-        "code": "1",
-        "externalMap": {},
-        "failCount": "0",
-        "isExcuteAction": true,
-        "isShowMsg": true,
-        "sucIdAndPubts": {
-            "1632366221520273433": "2023-01-09 10:56:58"
-        },
-        "successCount": "1"
-    },
-    {
-        "actionName": "自动匹配",
-        "code": "1",
-        "externalMap": {},
-        "failCount": "0",
-        "isExcuteAction": true,
-        "isShowMsg": false,
-        "sucIdAndPubts": {
-            "1632366221520273433": "2023-01-09 10:56:59"
-        },
-        "successCount": "1"
-    },
-    {
-        "actionName": "重量重算",
-        "code": "1",
-        "externalMap": {},
-        "failCount": "0",
-        "isExcuteAction": true,
-        "isShowMsg": false,
-        "sucIdAndPubts": {
-            "1632366221520273433": "2023-01-09 10:56:59"
-        },
-        "successCount": "1"
-    },
-    {
-        "actionName": "表头汇总表体仓库",
-        "code": "1",
-        "externalMap": {},
-        "failCount": "0",
-        "isExcuteAction": true,
-        "isShowMsg": false,
-        "sucIdAndPubts": {
-            "1632366221520273433": "2023-01-09 10:56:59"
-        },
-        "successCount": "1"
-    },
-    {
-        "actionName": "提交存量",
-        "code": "1",
-        "externalMap": {},
-        "failCount": "0",
-        "isExcuteAction": true,
-        "isShowMsg": false,
-        "sucIdAndPubts": {
-            "1632366221520273433": "2023-01-09 10:56:59"
-        },
-        "successCount": "1"
-    }
+
+	{
+	    "actionName": "订单修改",
+	    "code": "1",
+	    "externalMap": {},
+	    "failCount": "0",
+	    "isExcuteAction": true,
+	    "isShowMsg": true,
+	    "sucIdAndPubts": {
+	        "1632366221520273433": "2023-01-09 10:56:58"
+	    },
+	    "successCount": "1"
+	},
+	{
+	    "actionName": "自动匹配",
+	    "code": "1",
+	    "externalMap": {},
+	    "failCount": "0",
+	    "isExcuteAction": true,
+	    "isShowMsg": false,
+	    "sucIdAndPubts": {
+	        "1632366221520273433": "2023-01-09 10:56:59"
+	    },
+	    "successCount": "1"
+	},
+	{
+	    "actionName": "重量重算",
+	    "code": "1",
+	    "externalMap": {},
+	    "failCount": "0",
+	    "isExcuteAction": true,
+	    "isShowMsg": false,
+	    "sucIdAndPubts": {
+	        "1632366221520273433": "2023-01-09 10:56:59"
+	    },
+	    "successCount": "1"
+	},
+	{
+	    "actionName": "表头汇总表体仓库",
+	    "code": "1",
+	    "externalMap": {},
+	    "failCount": "0",
+	    "isExcuteAction": true,
+	    "isShowMsg": false,
+	    "sucIdAndPubts": {
+	        "1632366221520273433": "2023-01-09 10:56:59"
+	    },
+	    "successCount": "1"
+	},
+	{
+	    "actionName": "提交存量",
+	    "code": "1",
+	    "externalMap": {},
+	    "failCount": "0",
+	    "isExcuteAction": true,
+	    "isShowMsg": false,
+	    "sucIdAndPubts": {
+	        "1632366221520273433": "2023-01-09 10:56:59"
+	    },
+	    "successCount": "1"
+	}
+
 ]
 */
 type ModifyResponse struct {
@@ -251,7 +254,7 @@ func (resp ModifyResponse) Timestamp() string {
 func Modify(req ModifyRequest) (ModifyResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/modify", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/modify", req.ToValues())
 	if err != nil {
 		return ModifyResponse{}, err
 	}

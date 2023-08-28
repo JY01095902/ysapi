@@ -25,11 +25,11 @@ func (req UnauditRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "[{\"actionName\":\"退换货单弃审\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"1\"},{\"actionName\":\"取消奇门退换货单据\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"},{\"actionName\":\"取消顺丰WMS入库单\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"}]",
-    "data": null
-}
+	{
+	    "code": "200",
+	    "message": "[{\"actionName\":\"退换货单弃审\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"1\"},{\"actionName\":\"取消奇门退换货单据\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"},{\"actionName\":\"取消顺丰WMS入库单\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1588813225906405382\":\"2022-11-14 09:52:37\"},\"successCount\":\"0\"}]",
+	    "data": null
+	}
 */
 type UnauditResponse struct {
 	Code    string           `json:"code"`
@@ -95,7 +95,7 @@ func (resp UnauditResponse) Timestamp(id string) string {
 func Unaudit(req UnauditRequest) (UnauditResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/refundorder/unaudit", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/refundorder/unaudit", req.ToValues())
 	if err != nil {
 		return UnauditResponse{}, err
 	}

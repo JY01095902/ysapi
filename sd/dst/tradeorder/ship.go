@@ -47,16 +47,16 @@ func (req ShipRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "999",
-    "message": " 未财审订单不允许发货!"
-}
+	{
+	    "code": "999",
+	    "message": " 未财审订单不允许发货!"
+	}
 
-{
-    "code": "200",
-    "message": "[{\"actionName\":\"订单发货\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1576078312869986334\":\"2022-10-25 16:36:27\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1576078312869986334\":\"2022-10-25 16:36:27\"},\"successCount\":\"1\"}]",
-    "data": null
-}
+	{
+	    "code": "200",
+	    "message": "[{\"actionName\":\"订单发货\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1576078312869986334\":\"2022-10-25 16:36:27\"},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1576078312869986334\":\"2022-10-25 16:36:27\"},\"successCount\":\"1\"}]",
+	    "data": null
+	}
 */
 type ShipResponse struct {
 	Code    string         `json:"code"`
@@ -145,7 +145,7 @@ func Ship(req ShipRequest) (ShipResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
 	// fmt.Printf(" req.ToValues(): %s", req.ToValues().String())
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/ship", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/ship", req.ToValues())
 	if err != nil {
 		return ShipResponse{}, err
 	}
@@ -170,7 +170,7 @@ func Ship(req ShipRequest) (ShipResponse, error) {
 func ShipAndUpload(req ShipRequest) (ShipResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/shipandupload", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/shipandupload", req.ToValues())
 	if err != nil {
 		return ShipResponse{}, err
 	}
@@ -195,7 +195,7 @@ func ShipAndUpload(req ShipRequest) (ShipResponse, error) {
 func Upload(req ShipRequest) (ShipResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/tradeorder/upload", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/tradeorder/upload", req.ToValues())
 	if err != nil {
 		return ShipResponse{}, err
 	}

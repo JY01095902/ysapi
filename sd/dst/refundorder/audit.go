@@ -25,11 +25,11 @@ func (req AuditRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "[{\"code\":\"1\",\"isShowMsg\":true,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"1\",\"isExcuteAction\":true,\"actionName\":\"退换货单审核\"},{\"code\":\"1\",\"isShowMsg\":false,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"0\",\"isExcuteAction\":true,\"actionName\":\"创建顺丰WMS入库单\"},{\"code\":\"1\",\"isShowMsg\":false,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"0\",\"isExcuteAction\":true,\"actionName\":\"提交存量\"}]",
-    "data": null
-}
+	{
+	    "code": "200",
+	    "message": "[{\"code\":\"1\",\"isShowMsg\":true,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"1\",\"isExcuteAction\":true,\"actionName\":\"退换货单审核\"},{\"code\":\"1\",\"isShowMsg\":false,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"0\",\"isExcuteAction\":true,\"actionName\":\"创建顺丰WMS入库单\"},{\"code\":\"1\",\"isShowMsg\":false,\"externalMap\":{},\"failCount\":\"0\",\"sucIdAndPubts\":{\"1587276323400712196\":1668047093000},\"successCount\":\"0\",\"isExcuteAction\":true,\"actionName\":\"提交存量\"}]",
+	    "data": null
+	}
 */
 type AuditResponse struct {
 	Code    string           `json:"code"`
@@ -106,7 +106,7 @@ func (resp AuditResponse) Timestamp(id string) string {
 func Audit(req AuditRequest) (AuditResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/refundorder/audit", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/refundorder/audit", req.ToValues())
 	if err != nil {
 		return AuditResponse{}, err
 	}

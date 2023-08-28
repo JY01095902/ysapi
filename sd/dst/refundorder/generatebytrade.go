@@ -33,7 +33,7 @@ type GenerateByTradeResponse struct {
 func GenerateByTrade(req GenerateByTradeRequest) (GenerateByTradeResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/refundorder/generatebytrade", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/refundorder/generatebytrade", req.ToValues())
 	if err != nil {
 		return GenerateByTradeResponse{}, err
 	}

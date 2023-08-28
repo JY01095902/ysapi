@@ -29,7 +29,7 @@ func Detail(req DetailRequest) (DetailResponse, error) {
 			"id": req.Id,
 		}
 	}
-	vals, err := apiReq.Get(request.URLRoot+"/scm/morphologyconversion/detail", param)
+	vals, err := apiReq.Get(request.URLRoot+"/yonbip/scm/morphologyconversion/detail", param)
 	if err != nil {
 		return DetailResponse{}, err
 	}

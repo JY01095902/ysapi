@@ -31,11 +31,11 @@ func (req AddRequest) ToValues() request.Values {
 }
 
 /*
-{
-    "code": "200",
-    "message": "[{\"actionName\":\"订单挂起\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"1\"},{\"actionName\":\"取消顺丰WMS出库单\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"0\"},{\"actionName\":\"取消奇门单据\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"0\"},{\"actionName\":\"退换货单新增\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1509295411134726149\":1658905111000},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509295411134726149\":1658905111000},\"successCount\":\"1\"}]",
-    "data": null
-}
+	{
+	    "code": "200",
+	    "message": "[{\"actionName\":\"订单挂起\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"1\"},{\"actionName\":\"取消顺丰WMS出库单\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"0\"},{\"actionName\":\"取消奇门单据\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509293890716303371\":1658905111000},\"successCount\":\"0\"},{\"actionName\":\"退换货单新增\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":true,\"sucIdAndPubts\":{\"1509295411134726149\":1658905111000},\"successCount\":\"1\"},{\"actionName\":\"提交存量\",\"code\":\"1\",\"externalMap\":{},\"failCount\":\"0\",\"isExcuteAction\":true,\"isShowMsg\":false,\"sucIdAndPubts\":{\"1509295411134726149\":1658905111000},\"successCount\":\"1\"}]",
+	    "data": null
+	}
 */
 type AddResponse struct {
 	Code    string         `json:"code"`
@@ -126,7 +126,7 @@ func (resp AddResponse) Timestamp() string {
 func Add(req AddRequest) (AddResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/returnorder/add", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/returnorder/add", req.ToValues())
 	if err != nil {
 		return AddResponse{}, err
 	}

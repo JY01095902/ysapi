@@ -131,7 +131,7 @@ func (resp ModifyResponse) Timestamp(id string) string {
 func Modify(req ModifyRequest) (ModifyResponse, error) {
 	apiReq := request.New(req.AppKey, req.AppSecret)
 
-	vals, err := apiReq.Post(request.URLRoot+"/sd/dst/returnorder/modify", req.ToValues())
+	vals, err := apiReq.Post(request.URLRoot+"/yonbip/sd/dst/returnorder/modify", req.ToValues())
 	if err != nil {
 		return ModifyResponse{}, err
 	}
