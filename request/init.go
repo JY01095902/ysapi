@@ -1,17 +1,25 @@
 package request
 
-// func init() {
-// 	log.Println("getting url root...")
-// 	tenantId := "sqwx3cxr"
-// 	res, err := getURLRoot(tenantId)
-// 	if err != nil {
-// 		log.Printf("get url root failed: %v", err)
-// 	}
+import (
+	"log"
 
-// 	log.Printf("gateway url: %v", res.Data.GatewayURL)
-// 	log.Printf("token url: %v", res.Data.TokenURL)
+	"github.com/jy01095902/ysapi/env"
+)
 
-// 	tokenURLRoot = res.Data.TokenURL
-// 	urlRoot = res.Data.GatewayURL
-// 	URLRoot = urlRoot
-// }
+func init() {
+	log.Println("getting url root...")
+	tenantId := env.MustGetEnv("YS_TENANT_ID")
+
+	res, err := getURLRoot(tenantId)
+	if err != nil {
+		log.Printf("get url root failed: %v", err)
+	}
+
+	log.Printf("gateway url: %v", res.Data.GatewayURL)
+	log.Printf("token url: %v", res.Data.TokenURL)
+
+	tokenURLRoot = res.Data.TokenURL
+	URLRoot = res.Data.GatewayURL
+
+	refreshURLs()
+}
