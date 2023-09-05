@@ -7,14 +7,15 @@ import (
 )
 
 type DetailDto struct {
-	Id                   int64  `json:"id"`
-	OrderNumber          string `json:"code"`
-	SourceOrderNumber    string `json:"srcBillNO"`
-	HeadItemDefine1      string `json:"headItem!define1"`
-	HeadItemDefine2      string `json:"headItem!define2"`
-	ReceiverMobileNumber string `json:"receivemobile"`
-	OutWarehouseName     string `json:"outwarehouse_name"`
-	Items                []struct {
+	Id                      int64                  `json:"id"`
+	OrderNumber             string                 `json:"code"`
+	SourceOrderNumber       string                 `json:"srcBillNO"`
+	HeadItemDefine1         string                 `json:"headItem!define1"`
+	HeadItemDefine2         string                 `json:"headItem!define2"`
+	ReceiverMobileNumber    string                 `json:"receivemobile"`
+	OutWarehouseName        string                 `json:"outwarehouse_name"`
+	StoreOutDefineCharacter map[string]interface{} `json:"storeOutDefineCharacter"`
+	Items                   []struct {
 		ProductSKUCode string  `json:"productsku_cCode"`
 		Qty            float64 `json:"qty"`
 		SerialNumbers  []struct {
