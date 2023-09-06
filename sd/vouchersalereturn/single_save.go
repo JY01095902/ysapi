@@ -37,9 +37,10 @@ type SaleReturnOrder struct {
 	SaleReturnMemo       struct {
 		Remark string `json:"remark"`
 	} `json:"saleReturnMemo"`
-	Creator      string             `json:"creator"`
-	HeadFreeItem map[string]string  `json:"headFreeItem"`
-	Details      []SaleReturnDetail `json:"saleReturnDetails"`
+	Creator                   string                 `json:"creator"`
+	HeadFreeItem              map[string]string      `json:"headFreeItem"`              // 旧的自定义项
+	SaleReturnDefineCharacter map[string]interface{} `json:"salereturnDefineCharacter"` // 特征
+	Details                   []SaleReturnDetail     `json:"saleReturnDetails"`
 }
 
 func (order SaleReturnOrder) Check() error {
