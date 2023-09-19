@@ -87,6 +87,17 @@ type SaveOrderDetail struct {
 	FlatSaveOrderDetailPrice
 }
 
+/*
+（原币）含税金额=本币含税金额*汇率；  oriSum = orderDetailPrices!natSum * orderPrices!exchRate；
+
+（原币）含税金额=无税金额+税额；oriSum = orderDetailPrices!oriMoney + orderDetailPrices!oriTax；
+
+本币含税金额=本币无税金额+本币税额；orderDetailPrices!natSum = orderDetailPrices!natMoney + orderDetailPrices!natTax
+*/
+func (detail SaveOrderDetail) Check() error {
+	return nil
+}
+
 // exchRate 汇率
 func (detail *SaveOrderDetail) SetTaxUnitPrice(price, exchRate float64) {
 	fomatPrice := func(value float64) float64 {
