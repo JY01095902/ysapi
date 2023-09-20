@@ -117,6 +117,9 @@ type EventContent struct {
 	EventParams    struct {
 		Data []Values `json:"data"`
 	} `json:"eventParams"` // 库存分配事件的数据在这里
+	EventParam struct {
+		Data []Values `json:"data"`
+	} `json:"eventParam"` // sn状态变更事件的数据在这里
 }
 
 func (e EventContent) String() string {
