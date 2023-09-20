@@ -88,13 +88,30 @@ type SaveOrderDetail struct {
 }
 
 /*
-（原币）含税金额=本币含税金额*汇率；  oriSum = orderDetailPrices!natSum * orderPrices!exchRate；
-
-（原币）含税金额=无税金额+税额；oriSum = orderDetailPrices!oriMoney + orderDetailPrices!oriTax；
-
-本币含税金额=本币无税金额+本币税额；orderDetailPrices!natSum = orderDetailPrices!natMoney + orderDetailPrices!natTax
+本币含税金额=（原币）含税金额*汇率； orderDetailPrices!natSum = oriSum * orderPrices!exchRate；
+（原币）含税金额=无税金额+税额； oriSum = orderDetailPrices!oriMoney + orderDetailPrices!oriTax；
+本币含税金额=本币无税金额+税额；orderDetailPrices!natSum = orderDetailPrices!natMoney + orderDetailPrices!natTax
 */
-func (detail SaveOrderDetail) Check() error {
+func (detail SaveOrderDetail) Check(exchRate float64) error {
+	// 因为精度问题 金额都要保留2位小数后再比较验证
+	fixed2 := func(value float64) float64 {
+		value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
+		return value
+	}
+
+	if fixed2(detail.FlatSaveOrderDetailPrice.NatSum) != fixed2(detail.OriSum*exchRate) {
+		return fmt.Errorf("本币含税金额[%v] 应该等于（原币）含税金额[%v] * 汇率[%v]", detail.FlatSaveOrderDetailPrice.NatSum, detail.OriSum, exchRate)
+	}
+
+	if fixed2(detail.OriSum) != fixed2(detail.FlatSaveOrderDetailPrice.OriMoney+detail.FlatSaveOrderDetailPrice.OriTax) {
+		return fmt.Errorf("（原币）含税金额[%v] 应该等于 无税金额[%v] + 税额[%v]", detail.OriSum, detail.FlatSaveOrderDetailPrice.OriMoney, detail.FlatSaveOrderDetailPrice.OriTax)
+
+	}
+
+	if fixed2(detail.FlatSaveOrderDetailPrice.NatSum) != fixed2(detail.FlatSaveOrderDetailPrice.NatMoney+detail.FlatSaveOrderDetailPrice.NatTax) {
+		return fmt.Errorf("本币含税金额[%v] 应该等于 本币无税金额[%v] + 税额[%v]", detail.FlatSaveOrderDetailPrice.NatSum, detail.FlatSaveOrderDetailPrice.NatMoney, detail.FlatSaveOrderDetailPrice.NatTax)
+	}
+
 	return nil
 }
 

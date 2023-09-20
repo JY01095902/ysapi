@@ -93,13 +93,6 @@ func (order *SaveOrder) AddDetails(details ...SaveOrderDetail) {
 	order.Details = append(order.Details, details...)
 }
 
-/*
-（原币）含税金额=本币含税金额*汇率；  oriSum = orderDetailPrices!natSum * orderPrices!exchRate；
-
-（原币）含税金额=无税金额+税额；oriSum = orderDetailPrices!oriMoney + orderDetailPrices!oriTax；
-
-本币含税金额=本币无税金额+本币税额；orderDetailPrices!natSum = orderDetailPrices!natMoney + orderDetailPrices!natTax
-*/
 func (order *SaveOrder) CalculateAmount() {
 	fomatPrice := func(value float64) float64 {
 		value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
@@ -135,4 +128,14 @@ func (order *SaveOrder) CalculateAmount() {
 	order.FlatSaveOrderPrice.TotalNatTax = order.Prices.TotalNatTax
 	order.FlatSaveOrderPrice.PayMoneyDomesticTaxfree = order.Prices.PayMoneyDomesticTaxfree
 	order.FlatSaveOrderPrice.OrderPayMoneyDomesticTaxfree = order.Prices.OrderPayMoneyDomesticTaxfree
+}
+
+func (order SaveOrder) Check() error {
+	for _, dtl := range order.Details {
+		if err := dtl.Check(order.ExchRate); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
