@@ -1,9 +1,9 @@
 package request
 
-var tokenURLRoot = "https://yonbip.diwork.com/iuap-api-auth"
+var tokenURLRoot = "https://c2.yonyoucloud.com/iuap-api-auth"
 var tokenURL = tokenURLRoot + "/open-auth/selfAppAuth/getAccessToken"
 
-var URLRoot = "https://yonbip.diwork.com/iuap-api-gateway"
+var URLRoot = "https://c2.yonyoucloud.com/iuap-api-gateway"
 
 // digitalModel
 var CurrencyListURL = URLRoot + "/yonbip/digitalModel/currency/list"
