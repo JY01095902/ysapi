@@ -53,6 +53,8 @@ func fetchToken(appKey, appSecret, tokenURL string) (string, int, error) {
 	fmt.Printf("tokenURL --- : %s \n", tokenURL)
 	fmt.Printf("params --- : %s \n", getQueryString(params, appSecret))
 	if err != nil {
+		fmt.Printf("fetch token failed, error: %v \n", err)
+
 		return "", 0, err
 	}
 

@@ -67,8 +67,8 @@ type SaveOrderDetail struct {
 
 	TaxId string `json:"taxId"`
 	// TaxCode                 string               `json:"taxCode"`                 // 税目税率编码
-	TransactionTypeId string `json:"transactionTypeId"`
-	SalesOrgId        string `json:"salesOrgId"`
+	// TransactionTypeId string `json:"transactionTypeId"`
+	SalesOrgId string `json:"salesOrgId"`
 	// OrderDetailPrice        float64              `json:"orderDetailPrice"` // 订单金额
 	IProductAuxUnitId string               `json:"iProductAuxUnitId"`
 	IProductUnitId    string               `json:"iProductUnitId"`
