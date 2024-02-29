@@ -24,8 +24,9 @@ type ListRequest struct {
 
 func (req ListRequest) ToValues() request.Values {
 	values := request.Values{
-		"pageIndex": req.PageIndex,
-		"pageSize":  req.PageSize,
+		"pageIndex":  req.PageIndex,
+		"pageSize":   req.PageSize,
+		"totalCount": 0, // 不写的话默认是1，不会返回总条数和总页数
 	}
 
 	for k, v := range req.Params {
