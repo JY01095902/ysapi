@@ -37,7 +37,7 @@ type OtherOutOrder struct {
 	StockManagerName                 string                 `json:"stockMgr_name"`
 	DepartmentId                     string                 `json:"department"`
 	DepartmentName                   string                 `json:"department_name"`
-	CreatorId                        string                 `json:"creatorId"`
+	CreatorId                        int64                  `json:"creatorId"`
 	CreatorName                      string                 `json:"creator"`
 	CreatedDate                      string                 `json:"createDate"`
 	CreatedTime                      string                 `json:"createTime"`
