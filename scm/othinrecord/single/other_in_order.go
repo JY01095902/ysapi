@@ -35,11 +35,11 @@ type OtherInOrder struct {
 	StockManagerName                 string                 `json:"stockMgr_name"`
 	DepartmentId                     string                 `json:"department"`
 	DepartmentName                   string                 `json:"department_name"`
-	CreatorId                        string                 `json:"creatorId"`
+	CreatorId                        int64                  `json:"creatorId"`
 	CreatorName                      string                 `json:"creator"`
 	CreatedDate                      string                 `json:"createDate"`
 	CreatedTime                      string                 `json:"createTime"`
-	ModifierId                       string                 `json:"modifierId"`
+	ModifierId                       int64                  `json:"modifierId"`
 	ModifierName                     string                 `json:"modifier"`
 	ModifiedDate                     string                 `json:"modifyDate"`
 	ModifiedTime                     string                 `json:"modifyTime"`

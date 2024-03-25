@@ -41,7 +41,7 @@ type OtherOutOrder struct {
 	CreatorName                      string                 `json:"creator"`
 	CreatedDate                      string                 `json:"createDate"`
 	CreatedTime                      string                 `json:"createTime"`
-	ModifierId                       string                 `json:"modifierId"`
+	ModifierId                       int64                  `json:"modifierId"`
 	ModifierName                     string                 `json:"modifier"`
 	ModifiedDate                     string                 `json:"modifyDate"`
 	ModifiedTime                     string                 `json:"modifyTime"`
