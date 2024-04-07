@@ -19,7 +19,12 @@ func ListAll(listByPage ListByPage, limiter *rate.Limiter, timeout time.Duration
 	fetchListByPage := func(num int) (interface{}, error) {
 		log.Printf("page num: %v", num)
 
-		return listByPage(num)
+		res, err := listByPage(num)
+		if err != nil {
+			log.Printf("error: %v\n", err)
+		}
+
+		return res, err
 	}
 
 	qres, err := Query(1, fetchListByPage, limiter, timeout)
