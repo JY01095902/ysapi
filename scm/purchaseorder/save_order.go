@@ -110,18 +110,18 @@ func (detail *SaveOrderDetail) SetTaxUnitPrice(price, taxRate, exchRate float64)
 	log.Printf("detail: %s", string(data))
 }
 
+// 因为精度问题 金额都要保留2位小数后再比较验证
+func fixed2(value float64) float64 {
+	value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
+	return value
+}
+
 /*
 本币含税金额=（原币）含税金额*汇率； natSum = oriSum * exchRate；
 （原币）含税金额=无税金额+税额； oriSum = oriMoney + oriTax；
 本币含税金额=本币无税金额+税额； natSum = natMoney + natTax
 */
 func (detail SaveOrderDetail) Check(exchRate float64) error {
-	// 因为精度问题 金额都要保留2位小数后再比较验证
-	fixed2 := func(value float64) float64 {
-		value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
-		return value
-	}
-
 	if fixed2(detail.NatSum) != fixed2(detail.OriSum*exchRate) {
 		return fmt.Errorf("本币含税金额[%v] 应该等于（原币）含税金额[%v] * 汇率[%v]", detail.NatSum, detail.OriSum, exchRate)
 	}
@@ -165,6 +165,8 @@ type SaveOrder struct {
 	VendorCode                   string                 `json:"vendor_code"`
 	VouchDate                    string                 `json:"vouchdate"`
 	Creator                      string                 `json:"creator"`
+
+	NatTax float64 `json:"natTax"`
 }
 
 func (order SaveOrder) Check() error {
@@ -175,4 +177,24 @@ func (order SaveOrder) Check() error {
 	}
 
 	return nil
+}
+
+func (order *SaveOrder) CalculateAmount() {
+	var totalNatMoney,
+		totalNatSum,
+		totalOriMoney,
+		totalOriSum float64
+
+	for _, item := range order.Details {
+		totalNatMoney += item.NatMoney
+		totalNatSum += item.NatSum
+		totalOriMoney += item.OriMoney
+		totalOriSum += item.OriSum
+	}
+
+	order.NatMoney = fixed2(totalNatMoney)
+	order.NatSum = fixed2(totalNatSum)
+	order.NatTax = fixed2(totalNatSum - totalNatMoney)
+	order.OriMoney = fixed2(totalOriMoney)
+	order.OriSum = fixed2(totalOriSum)
 }
