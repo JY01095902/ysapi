@@ -6,22 +6,17 @@ type OtherInOrder struct {
 	MasterOrgKeyField                string                 `json:"masterOrgKeyField"`
 	BusinessTypeId                   string                 `json:"bustype"`
 	BusinessTypeName                 string                 `json:"bustype_name"`
-	IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
 	Date                             string                 `json:"vouchdate"`
 	NativeCurrencyId                 string                 `json:"natCurrency"`
 	TotalQty                         float64                `json:"totalQuantity"`
 	Id                               int64                  `json:"id"`
-	IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
 	OrgId                            string                 `json:"org"`
 	OrgName                          string                 `json:"org_name"`
 	BusinessTypeExtendAttributesJson string                 `json:"bustype_extend_attrs_json,omitempty"`
 	PublishedTime                    string                 `json:"pubts"`
 	AccountOrgId                     string                 `json:"accountOrg"`
 	WarehouseId                      int64                  `json:"warehouse"`
-	WarehouseName                    string                 `json:"warehouse_name"`
-	IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
 	TransactionTypeKeyField          string                 `json:"transTypeKeyField"`
-	IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
 	NativeCurrencyMoneyDigit         int                    `json:"natCurrency_moneyDigit"`
 	NativeCurrencyPriceDigit         int                    `json:"natCurrency_priceDigit"`
 	AccountOrgName                   string                 `json:"accountOrg_name"`
@@ -47,6 +42,13 @@ type OtherInOrder struct {
 	Defines                          map[string]interface{} `json:"defines"`                    // 写入
 	OthInRecordDefineCharacter       map[string]interface{} `json:"othInRecordDefineCharacter"` // 新版 特征组
 	Details                          []OtherInOrderDetail   `json:"othInRecords,omitempty"`
+	WarehouseName                    string                 `json:"-"`
+	// 用友说不用传这些字段 2024-10-12 11:28:38
+	// IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
+	// IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
+	// IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
+	// IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
+	// WarehouseName                    string                 `json:"warehouse_name"`
 }
 
 type OtherInOrderDetail struct {

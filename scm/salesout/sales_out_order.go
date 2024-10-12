@@ -7,7 +7,6 @@ type DetailDto struct {
 	InvoiceOrgId                     string                 `json:"invoiceOrg"`
 	MasterOrgKeyField                string                 `json:"masterOrgKeyField"`
 	BusinessTypeName                 string                 `json:"bustype_name"`
-	IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
 	SourceOrderId                    string                 `json:"srcBill"`
 	NativeCurrencyId                 string                 `json:"natCurrency"`
 	SourceSystem                     string                 `json:"sourcesys"`
@@ -21,8 +20,6 @@ type DetailDto struct {
 	SourceOrderNumber                string                 `json:"srcBillNO"`
 	WarehouseId                      int64                  `json:"warehouse"`
 	SourceOrderType                  string                 `json:"srcBillType"`
-	IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
-	WarehouseName                    string                 `json:"warehouse_name"`
 	NativeCurrencyMoneyDigit         int                    `json:"natCurrency_moneyDigit"`
 	NativeCurrencyPriceDigit         int                    `json:"natCurrency_priceDigit"`
 	AccountOrgName                   string                 `json:"accountOrg_name"`
@@ -44,7 +41,6 @@ type DetailDto struct {
 	CurrencyName                     string                 `json:"currencyName"`
 	CustomerName                     string                 `json:"cust_name"`
 	CurrencyId                       string                 `json:"currency"`
-	IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
 	OrgName                          string                 `json:"org_name"`
 	DepartmentId                     string                 `json:"department"`
 	PublishedTime                    string                 `json:"pubts"`
@@ -55,7 +51,6 @@ type DetailDto struct {
 	DepartmentName                   string                 `json:"department_name"`
 	ExchangeRateName                 string                 `json:"exchRateType_name"`
 	AccountOrgId                     string                 `json:"accountOrg"`
-	IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
 	TransactionTypeKeyField          string                 `json:"transTypeKeyField"`
 	BusinessTypeId                   string                 `json:"bustype"`
 	IsRetailInvestors                bool                   `json:"retailInvestors"`
@@ -79,6 +74,13 @@ type DetailDto struct {
 	InvoiceType                      string                 `json:"invoiceUpcType"`
 	SalesOutDefineCharacter          map[string]interface{} `json:"salesOutDefineCharacter"` // 特征
 	Items                            []DetailItemDto        `json:"details"`
+	WarehouseName                    string                 `json:"-"`
+	// 用友说不用传这些字段 2024-10-12 11:28:38
+	// IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
+	// IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
+	// IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
+	// IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
+	// WarehouseName                    string                 `json:"warehouse_name"`
 }
 
 type DetailItemDto struct {

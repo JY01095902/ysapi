@@ -6,13 +6,11 @@ type OtherOutOrder struct {
 	MasterOrgKeyField                string                 `json:"masterOrgKeyField"`
 	BusinessTypeId                   string                 `json:"bustype"`
 	BusinessTypeName                 string                 `json:"bustype_name"`
-	IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
 	Date                             string                 `json:"vouchdate"`
 	NativeCurrencyId                 string                 `json:"natCurrency"`
 	TotalQty                         float64                `json:"totalQuantity"`
 	ReceiverMobileNumber             string                 `json:"receivemobile"`
 	Id                               int64                  `json:"id"`
-	IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
 	OrgId                            string                 `json:"org"`
 	OrgName                          string                 `json:"org_name"`
 	BusinessTypeExtendAttributesJson string                 `json:"bustype_extend_attrs_json,omitempty"`
@@ -20,10 +18,7 @@ type OtherOutOrder struct {
 	ReceiverName                     string                 `json:"receiver"`
 	AccountOrgId                     string                 `json:"accountOrg"`
 	WarehouseId                      int64                  `json:"warehouse"`
-	WarehouseName                    string                 `json:"warehouse_name"`
-	IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
 	TransactionTypeKeyField          string                 `json:"transTypeKeyField"`
-	IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
 	ReceiverDetail                   string                 `json:"receiveaddr"`
 	NativeCurrencyMoneyDigit         int                    `json:"natCurrency_moneyDigit"`
 	NativeCurrencyPriceDigit         int                    `json:"natCurrency_priceDigit"`
@@ -51,6 +46,13 @@ type OtherOutOrder struct {
 	WMSWaybillNumber                 string                 `json:"headItem!define1"`
 	WMSShipmentMode                  string                 `json:"headItem!define2"`
 	Details                          []OtherOutOrderDetail  `json:"othOutRecords"`
+	WarehouseName                    string                 `json:"-"`
+	// 用友说不用传这些字段 2024-10-12 11:28:38
+	// IsCountCostWarehouse             bool                   `json:"warehouse_countCost"`
+	// IsSerialNumberManageWarehouse    bool                   `json:"warehouse_iSerialManage"`
+	// IsGoodsPositionWarehouse         bool                   `json:"warehouse_isGoodsPosition"`
+	// IsGoodsPositionStockWarehouse    bool                   `json:"warehouse_isGoodsPositionStock"`
+	// WarehouseName                    string                 `json:"warehouse_name"`
 }
 
 type OtherOutOrderDetail struct {
