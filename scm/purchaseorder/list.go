@@ -11,7 +11,7 @@ type SimpleVO struct {
 	Field  string
 	Op     string
 	Value1 interface{}
-	Value2 interface{}
+	Value2 string
 }
 
 type ListRequest struct {
