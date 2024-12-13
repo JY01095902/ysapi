@@ -13,9 +13,9 @@ type DetailRequest struct {
 }
 
 type DetailResponse struct {
-	Code    string    `json:"code"`
-	Message string    `json:"message"`
-	Data    DetailDto `json:"data"`
+	Code    string       `json:"code"`
+	Message string       `json:"message"`
+	Data    GetDetailDto `json:"data"`
 }
 
 func Get(req DetailRequest) (DetailResponse, error) {

@@ -1,5 +1,11 @@
 package salesout
 
+type GetDetailDto struct {
+	DetailDto
+	// 查询订单出库信息的时候需要仓库名，但是保存的时候不需要 2024-12-13 15:17:49
+	WarehouseName string `json:"warehouse_name"`
+}
+
 type DetailDto struct {
 	ReceiverDetail                   string                 `json:"cReceiveAddress"`
 	NativeCurrencyCode               string                 `json:"natCurrencyCode"`
