@@ -52,22 +52,22 @@ type OtherInOrder struct {
 }
 
 type OtherInOrderDetail struct {
-	RowNumber            int64          `json:"rowno"`
-	StockUnitId          int64          `json:"stockUnitId"`
-	StockUnitName        string         `json:"stockUnit_name"`
-	IsAutoCalculateCost  bool           `json:"autoCalcCost"`
-	ReserveId            int64          `json:"reserveid"`
-	ProductClassId       int64          `json:"productClass"`
-	ProductClassName     string         `json:"productClassName"`
-	ProductId            int64          `json:"product"`
-	ProductCode          string         `json:"product_cCode"`
-	ProductName          string         `json:"product_cName"`
-	ProductUnitName      string         `json:"product_unitName"`
-	ProductSKUId         int64          `json:"productsku"`
-	ProductSKUName       string         `json:"productsku_cName"`
-	StockStatusDocId     int64          `json:"stockStatusDoc"`
-	ProductSKUCode       string         `json:"productsku_cCode"`
-	StockStatusDocName   string         `json:"stockStatusDoc_name"`
+	RowNumber           int64  `json:"rowno"`
+	StockUnitId         int64  `json:"stockUnitId"`
+	StockUnitName       string `json:"stockUnit_name"`
+	IsAutoCalculateCost bool   `json:"autoCalcCost"`
+	ReserveId           int64  `json:"reserveid"`
+	ProductClassId      int64  `json:"productClass"`
+	ProductClassName    string `json:"productClassName"`
+	ProductId           int64  `json:"product"`
+	ProductCode         string `json:"product_cCode"`
+	ProductName         string `json:"product_cName"`
+	ProductUnitName     string `json:"product_unitName"`
+	ProductSKUId        int64  `json:"productsku"`
+	ProductSKUName      string `json:"productsku_cName"`
+	// StockStatusDocId     int64          `json:"stockStatusDoc"`
+	ProductSKUCode string `json:"productsku_cCode"`
+	// StockStatusDocName   string         `json:"stockStatusDoc_name"`
 	IsBatchManage        bool           `json:"isBatchManage"`
 	IsExpiryDateManage   bool           `json:"isExpiryDateManage"`
 	StockUnitPrecision   int            `json:"stockUnitId_Precision"`
