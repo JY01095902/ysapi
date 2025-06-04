@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/jy01095902/ysapi/request"
 	"github.com/stretchr/testify/assert"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 func TestListRequestToValues(t *testing.T) {

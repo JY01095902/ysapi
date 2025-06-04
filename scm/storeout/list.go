@@ -6,8 +6,8 @@ import (
 	"log"
 	"sync"
 
-	"github.com/jy01095902/ysapi/batchreq"
-	"github.com/jy01095902/ysapi/request"
+	"gitlab.libratone.com/internet/ysapi.git/batchreq"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 type SimpleVO struct {

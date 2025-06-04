@@ -5,8 +5,8 @@ import (
 	"log"
 	"testing"
 
-	"github.com/jy01095902/ysapi/request"
 	"github.com/stretchr/testify/assert"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 func TestShipRequestToValues(t *testing.T) {

@@ -1,4 +1,4 @@
-module github.com/jy01095902/ysapi
+module gitlab.libratone.com/internet/ysapi.git
 
 go 1.18
 

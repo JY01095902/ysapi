@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/jy01095902/ysapi/request"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 type SimpleVO struct {
@@ -68,6 +68,7 @@ type ListResponse struct {
 func (resp ListResponse) Total() int {
 	return resp.Data.RecordCount
 }
+
 func (resp ListResponse) PageCount() int {
 	cnt := float64(resp.Data.RecordCount) / float64(resp.Data.PageSize)
 

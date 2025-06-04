@@ -3,7 +3,7 @@ package refundorder
 import (
 	"fmt"
 
-	"github.com/jy01095902/ysapi/request"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 type GenerateByTradeRequest struct {

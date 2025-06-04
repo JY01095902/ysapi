@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/jy01095902/ysapi/request"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 type ListRequest struct {

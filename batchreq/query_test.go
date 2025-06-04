@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jy01095902/ysapi/request"
 	"github.com/stretchr/testify/assert"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 	"golang.org/x/time/rate"
 )
 

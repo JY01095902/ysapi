@@ -3,7 +3,7 @@ package request
 import (
 	"log"
 
-	"github.com/jy01095902/ysapi/env"
+	"gitlab.libratone.com/internet/ysapi.git/env"
 )
 
 func init() {

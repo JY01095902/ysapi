@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/jy01095902/ysapi/request"
+	"gitlab.libratone.com/internet/ysapi.git/request"
 )
 
 type QueryRequest struct {
@@ -35,6 +35,7 @@ type QueryResponse struct {
 func (resp QueryResponse) Total() int {
 	return resp.Data.TotalCount
 }
+
 func (resp QueryResponse) PageCount() int {
 	cnt := float64(resp.Data.TotalCount) / float64(resp.Data.PageSize)
 
